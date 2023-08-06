@@ -5,7 +5,7 @@ const auth = require("../middleware/auth")
 module.exports = function (router) {
 
 
-    router.post("/bookinfo",multer.any(),auth, async (req, res) => {
+    router.post("/bookinfo", multer.any(), auth, async (req, res) => {
         try {
             const data = {
                 title: req.body.title,
@@ -27,24 +27,37 @@ module.exports = function (router) {
         }
     });
 
-router.get("/booksget",auth,async (req,res)=>{
-try {
-        const data = await db.find();
-        res.status(200).json({ success: true, data: data });
-} catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
-}
+    router.get("/booksget", auth, async (req, res) => {
+        try {
+            const data = await db.find();
+            res.status(200).json({ success: true, data: data });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ success: false, message: 'Internal server error' });
+        }
+    })
 
-})
-    router.get("/search/:search",auth, async (req, res) => {
+
+    router.get("/bookget/:id", auth, async (req, res) => {
+        try {
+            const data = await db.findById(req.params.id);
+            res.status(200).json({ success: true, data: data });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ success: false, message: 'Internal server error' });
+        }
+
+    })
+
+    
+    router.get("/search/:search", auth, async (req, res) => {
         try {
             let search = req.params.search
             let users = await db.find(
                 {
                     "$or": [{ "title": { $regex: search, $options: "i" } },
                     { "genre": { $regex: search, $options: "i" } },
-                    // { "price": { $regex: search, $options: "i" } }
+                        // { "price": { $regex: search, $options: "i" } }
                     ]
                 }
                 ,);
