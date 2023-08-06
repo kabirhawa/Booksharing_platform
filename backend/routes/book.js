@@ -13,8 +13,6 @@ module.exports = function (router) {
                 author: req.body.author,
                 genre: req.body.gener,
                 description: req.body.description,
-
-
                 // bookurl:req.body.boo
             }
 
