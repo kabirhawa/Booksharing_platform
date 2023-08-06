@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { login } from "../Service/user.service";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const LoginSchema = Yup.object().shape({
@@ -19,14 +21,24 @@ export default function SignIn() {
       .min(3, "Password must be 3 characters at minimum")
       .required("Password is required"),
   });
-
+  const navigate = useNavigate();
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
       validationSchema={LoginSchema}
       onSubmit={(values) => {
         console.log(values);
-        alert("Form is validated! Submitting the form...");
+        login({ email: values.email, password: values.password })
+          .then((response) => {
+            const authToken = response.data.token;
+            const now = new Date().getTime();
+            sessionStorage.setItem("authToken", authToken);
+            sessionStorage.setItem("authTokenTimestamp", now);
+            navigate("/");
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }}
     >
       {({ errors, touched, handleSubmit, handleChange, handleBlur }) => (
