@@ -4,10 +4,11 @@ const auth = require("../middleware/auth")
 
 module.exports = function (router) {
 
-
+//books uploud
     router.post("/bookinfo", multer.any(), auth, async (req, res) => {
         try {
             const data = {
+                userid:req.decoded.userid,
                 title: req.body.title,
                 author: req.body.author,
                 genre: req.body.gener,
@@ -27,6 +28,9 @@ module.exports = function (router) {
         }
     });
 
+
+
+    //books on home page
     router.get("/booksget", auth, async (req, res) => {
         try {
             const data = await db.find();
@@ -37,7 +41,19 @@ module.exports = function (router) {
         }
     })
 
+    //user books
+    router.get("/userbooks/:userid", auth, async (req, res) => {
+        try {
+            console.log(req.params);
+            const data = await db.find({userid:req.params.userid});
+            res.status(200).json({ success: true, data: data });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ success: false, message: 'Internal server error' });
+        }
+    })
 
+//click to open book
     router.get("/bookget/:id", auth, async (req, res) => {
         try {
             const data = await db.findById(req.params.id);
@@ -49,7 +65,7 @@ module.exports = function (router) {
 
     })
 
-    
+//search book by title , genre
     router.get("/search/:search", auth, async (req, res) => {
         try {
             let search = req.params.search

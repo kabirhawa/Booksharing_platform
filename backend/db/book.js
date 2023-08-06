@@ -22,9 +22,15 @@ description:{
 },
 bookurl:{
     type:String,
-    require:[true,"book name require"]
+    require:[true,"bookurl is required"]
 
 },
+userid:{
+    type:String,
+    require:[true,"userid is required"]
+
+},
+
 
 },{timestamps: true,})
 module.exports =mongoose.model("bookinfo",bookinfo)

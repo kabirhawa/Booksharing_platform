@@ -77,6 +77,8 @@ module.exports = function (router) {
     }
   });
 
+
+  //auth of user 
   router.get('/home', auth, async (req, res) => {
     try {
       const userid = req.decoded.userid;
@@ -87,33 +89,10 @@ module.exports = function (router) {
     }
   })
 
-// const dataPerPage = 2;
-// let currentPage = 1;
  
 
 
 
-
-  router.get("/search/:search", async (req, res) => {
-		try {
-			let search=req.params.search
-			let users = await db.find(
-				{
-					"$or": [{ "bookname": { $regex: search,$options:"i" } },
-					{ "category": { $regex:  search,$options:"i" } },
-					{ "price": { $regex:  search,$options:"i" } }
-					]
-				}
-				,);
-        const reversedata = users.reverse();
-			res.json({ success: true, data: reversedata });
-
-
-		} catch (error) {
-			res.json({ success: false, message: "something went wrong" });
-			console.log(error);
-		}
-	});
 
 
 
