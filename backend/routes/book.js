@@ -4,7 +4,7 @@ const auth = require("../middleware/auth")
 
 module.exports = function (router) {
 
-//books uploud
+//books uploud book image api is panding
     router.post("/bookinfo", multer.any(), auth, async (req, res) => {
         try {
             const data = {
