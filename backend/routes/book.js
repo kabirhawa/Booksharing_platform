@@ -66,7 +66,7 @@ module.exports = function (router) {
     }
   });
 
-  router.delete("/bookdelete/:_id", async (req, res) => {
+  router.delete("/bookdelete/:_id",auth, async (req, res) => {
     try {
       const cardatas = await db.findByIdAndDelete(req.params._id);
       res
@@ -80,7 +80,7 @@ module.exports = function (router) {
     }
   });
 
-  router.put("/bookupdate/:_id", async (req, res) => {
+  router.put("/bookupdate/:_id",auth, async (req, res) => {
     try {
       let update = await db.findByIdAndUpdate(req.params._id, {
         $set: req.body,
