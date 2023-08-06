@@ -17,6 +17,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(function (req, res, next) {
   res.header(
     "Access-Control-Allow-Methods",
