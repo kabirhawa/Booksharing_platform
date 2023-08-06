@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { login } from "../Service/user.service";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const LoginSchema = Yup.object().shape({
@@ -106,7 +106,7 @@ export default function SignIn() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/register" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
