@@ -2,6 +2,7 @@ import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { BrowserRouter as Router } from "react-router-dom";
 import MainRoute from "./Routes/mainroute";
+import Navbar from "./Pages/Navbar";
 function App() {
   const theme = createTheme({
     palette: {
@@ -31,7 +32,7 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <Router>
-          {/* <Navbar /> */}
+          <Navbar />
           <MainRoute />
         </Router>
       </ThemeProvider>
