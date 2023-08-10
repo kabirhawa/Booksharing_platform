@@ -1,5 +1,4 @@
 import React from "react";
-import "./Navbar.css";
 import { FaUser } from "react-icons/fa";
 import { MdLogin } from "react-icons/md";
 import logo from '../logo/bLogo.jpg'
