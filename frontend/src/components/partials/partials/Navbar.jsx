@@ -1,7 +1,8 @@
 import React from "react";
-import "./Navbar.css"
+import "../styles/Navbar.css"
 import { FaUser } from "react-icons/fa"
 import { MdLogin } from "react-icons/md"
+import { Link } from "react-router-dom";
 
 
 function Navbar() {
@@ -16,38 +17,38 @@ function Navbar() {
           </label>
           <div className="menu">
             <li>
-              <a href="/">Home</a>
+              <Link to="/">Home</Link>
             </li>
 
             <li>
-              <a href="/">Contact</a>
+              <Link to="/">Contact</Link>
               {/* <FaUser /> */}
             </li>
             <li className="services">
-              <a href="/">Services</a>
+              <Link to="/">Services</Link>
               <ul className="dropdown">
                 <li>
-                  <a href="/">Dropdown 1 </a>
+                  <Link to="/">Dropdown 1 </Link>
                 </li>
                 <li>
-                  <a href="/">Dropdown 2</a>
+                  <Link to="/">Dropdown 2</Link>
                 </li>
                 <li>
-                  <a href="/">Dropdown 2</a>
+                  <Link to="/">Dropdown 2</Link>
                 </li>
                 <li>
-                  <a href="/">Dropdown 3</a>
+                  <Link to="/">Dropdown 3</Link>
                 </li>
                 <li>
-                  <a href="/">Dropdown 4</a>
+                  <Link to="/">Dropdown 4</Link>
                 </li>
               </ul>
             </li>
             <li>
-             <FaUser /> <a href="/">Register</a>
+             <FaUser /> <Link to="/register">Register</Link>
             </li>
             <li>
-             <MdLogin /> <a href="/">Login</a>
+             <MdLogin /> <Link to="/login">Login</Link>
             </li>
           </div>
         </ul>
