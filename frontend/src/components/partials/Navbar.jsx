@@ -1,20 +1,25 @@
 import React from "react";
-import "../styles/Navbar.css"
-import { FaUser } from "react-icons/fa"
-import { MdLogin } from "react-icons/md"
+import "../styles/Navbar.css";
+import { FaUser } from "react-icons/fa";
+import { MdLogin } from "react-icons/md";
 import { Link } from "react-router-dom";
-import logo from '../logo/bLogo.jpg'
-
+import logo from "../../logo/bLogo.jpg";
 
 function Navbar() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-        <a class="navbar-brand" href="#">
-      <img src={logo} alt="" width="30" height="28" className="d-inline-block align-text-top mx-1" />
-      BookSharing platform
-    </a>
+          <a class="navbar-brand" href="#">
+            <img
+              src={logo}
+              alt=""
+              width="30"
+              height="28"
+              className="d-inline-block align-text-top mx-1"
+            />
+            BookSharing platform
+          </a>
           <button
             className="navbar-toggler"
             type="button"
@@ -71,16 +76,15 @@ function Navbar() {
                 </ul>
               </li>
               <li className="nav-item">
-                   <a className="nav-link" href="#">
-                   <i className="fa fa-user mx-1"></i>Register
+                <a className="nav-link" href="#">
+                  <i className="fa fa-user mx-1"></i>Register
                 </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
-                <i className="fa fa-sign-in mx-1"></i> Login
+                  <i className="fa fa-sign-in mx-1"></i> Login
                 </a>
               </li>
-
             </ul>
             <form className="d-flex">
               <input
