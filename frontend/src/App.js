@@ -3,6 +3,8 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import { BrowserRouter as Router } from "react-router-dom";
 import MainRoute from "./Routes/mainroute";
 import Navbar from "./components/partials/partials/Navbar";
+import { Provider } from 'react-redux'
+import store from "./store";
 
 function App() {
   const theme = createTheme({
@@ -31,12 +33,14 @@ function App() {
   });
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
-        <Router>
-          <Navbar />
-          <MainRoute />
-        </Router>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Router>
+            <Navbar />
+            <MainRoute />
+          </Router>
+        </ThemeProvider>
+      </Provider>
     </div>
   );
 }

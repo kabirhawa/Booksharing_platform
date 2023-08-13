@@ -11,6 +11,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { login } from "../Service/user.service";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setToken } from "../store/slices/user";
 
 export default function SignIn() {
   const LoginSchema = Yup.object().shape({
@@ -22,6 +24,8 @@ export default function SignIn() {
       .required("Password is required"),
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -34,6 +38,7 @@ export default function SignIn() {
             const now = new Date().getTime();
             sessionStorage.setItem("authToken", authToken);
             sessionStorage.setItem("authTokenTimestamp", now);
+            dispatch(setToken(response.data.token));
             navigate("/");
           })
           .catch((error) => {

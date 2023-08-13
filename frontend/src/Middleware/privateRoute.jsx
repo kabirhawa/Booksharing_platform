@@ -1,13 +1,25 @@
 import React from "react";
-import { Navigate, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { setToken } from "../store/slices/user";
 
-export const privateRoute = (Component) => {
+export const PrivateRoute = (Component) => {
+  const dispatch = useDispatch();
+  const userState = useSelector((state) => state.user).token;
+
   const isTokenValid = () => {
-    const authTokenTimestamp = parseInt(
-      sessionStorage.getItem("authTokenTimestamp"),
-      10
+    var authTokenTimestamp = Number(
+      sessionStorage.getItem("authTokenTimestamp")
     );
-    if (!authTokenTimestamp) {
+    let auth;
+    if (userState) {
+      auth = userState;
+    } else {
+      auth = sessionStorage.getItem("authToken");
+      dispatch(setToken(auth));
+    }
+
+    if (!auth) {
       return false; // Token not found
     }
 
