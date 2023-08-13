@@ -12,7 +12,7 @@ module.exports = function (router) {
         author: req.body.author,
         genre: req.body.gener,
         description: req.body.description,
-        // bookurl:req.body.boo
+        bookurl:req.body.bookurl
       };
 
       const datas = await db(data);

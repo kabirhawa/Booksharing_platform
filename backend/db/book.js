@@ -30,6 +30,7 @@ userid:{
     require:[true,"userid is required"]
 
 },
+bookurl:[]
 
 
 },{timestamps: true,})

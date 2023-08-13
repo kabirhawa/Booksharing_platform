@@ -49,14 +49,14 @@ module.exports = function (router) {
     try {
       const email = req.body.email
       const password = req.body.password
-
+      
       const user = await db.findOne({ email });
       if (!user) {
         return res.status(401).json({ success: false, message: 'Invalid credentials' });
       }
 
       const isPasswordValid = await bcrypt.compare(password, user.password);
-
+      
       if (!isPasswordValid) {
         return res.status(401).json({ success: false, message: 'Invalid credentials' });
       }
@@ -83,7 +83,12 @@ module.exports = function (router) {
     try {
       const userid = req.decoded.userid;
       const userdatas = await db.findById(userid).select("-password -token");;
-      res.status(200).json({ success: true, data: userdatas });
+      if(userdatas){
+        res.status(200).json({ success: true, data: userdatas });
+      }else{
+         res.status(401).json({ success: false, message: 'User not exists' });
+
+      }
     } catch (error) {
       res.status(500).json({ success: false, message: 'Internal server error' });
     }
