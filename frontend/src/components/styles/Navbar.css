@@ -5,7 +5,9 @@
     padding: 20px;
     background-color: teal;
     color: #fff;
-    height: 35px;
+    /* height: 4.2rem; */
+    /* z-index: 2; */
+    font-size: large;
   }
   
   .nav-links a {

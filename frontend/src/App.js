@@ -5,6 +5,7 @@ import MainRoute from "./Routes/mainroute";
 import Navbar from "./components/partials/Navbar";
 import { Provider } from 'react-redux'
 import store from "./store";
+import Footer from  "../src/components/partials/Footer"
 
 function App() {
   const theme = createTheme({
@@ -38,6 +39,7 @@ function App() {
           <Router>
             <Navbar />
             <MainRoute />
+            <Footer />
           </Router>
         </ThemeProvider>
       </Provider>
