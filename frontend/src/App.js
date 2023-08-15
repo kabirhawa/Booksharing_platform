@@ -1,9 +1,9 @@
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router} from "react-router-dom";
 import MainRoute from "./Routes/mainroute";
-import Navbar from "./components/partials/Navbar";
-import { Provider } from 'react-redux'
+
+import { Provider } from "react-redux";
 import store from "./store";
 
 function App() {
@@ -31,12 +31,13 @@ function App() {
     },
     // Additional theme configurations...
   });
+
   return (
     <div className="App">
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <Router>
-            <Navbar />
+            
             <MainRoute />
           </Router>
         </ThemeProvider>
