@@ -12,7 +12,7 @@ export class Footer extends Component {
                   >
             <section
                      className="d-flex justify-content-between p-4"
-                     style={{backgroundColor: "#6351ce"}}
+                     style={{backgroundColor: "purple"}}
                      >
               <div className="me-5">
                 <span>Get connected with us on social networks:</span>
