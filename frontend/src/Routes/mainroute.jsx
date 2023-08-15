@@ -5,6 +5,7 @@ import Login from "../Pages/login";
 import Navbar from "../components/partials/Navbar";
 import Register from "../Pages/Register";
 import PublicRoute from "../Middleware/PublicRoute";
+import Footer from "../components/partials/Footer";
 const Home = lazy(() => import("../Pages/home"));
 
 const MainRoute = () => {
@@ -22,6 +23,12 @@ const MainRoute = () => {
         <Route path="/" element={<PublicRoute component={Home} />} />
         <Route path="/register" element={<Register />} />
       </Routes>
+      {location.pathname === "/login" || location.pathname === "/register" ? (
+        <></>
+      ) : (
+        <Footer />
+      )}
+      
     </>
   );
 };

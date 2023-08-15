@@ -6,6 +6,9 @@ export function register(rowdata) {
 }
 
 export function login(rowdata) {
-
   return axios.post(`${URL}/login`, rowdata); // Adjust the HTTP method and parameters as needed
+}
+
+export function getUser() {
+  return axios.get(`${URL}/home`); // Adjust the HTTP method and parameters as needed
 }

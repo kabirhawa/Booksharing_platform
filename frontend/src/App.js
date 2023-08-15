@@ -5,7 +5,7 @@ import MainRoute from "./Routes/mainroute";
 
 import { Provider } from "react-redux";
 import store from "./store";
-import Footer from  "../src/components/partials/Footer"
+
 
 function App() {
   const theme = createTheme({
@@ -40,7 +40,7 @@ function App() {
           <Router>
             
             <MainRoute />
-            <Footer />
+           
           </Router>
         </ThemeProvider>
       </Provider>

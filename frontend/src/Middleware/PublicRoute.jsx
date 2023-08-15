@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken } from "../store/slices/user";
+import { setToken, setUser } from "../store/slices/user";
 import { Navigate } from "react-router-dom";
+import axios from "axios";
+import { getUser } from "../Service/user.service";
 
 const PublicRoute = ({ component: Component }) => {
   // console.log("public route called");
@@ -10,9 +12,8 @@ const PublicRoute = ({ component: Component }) => {
 
   const isTokenValid = () => {
     console.log("called");
-    var authTokenTimestamp = Number(
-      sessionStorage.getItem("authTokenTimestamp")
-    );
+    var authTokenTimestamp = sessionStorage.getItem("authTokenTimestamp");
+
     let auth = null;
     if (userState) {
       auth = userState;
@@ -20,6 +21,14 @@ const PublicRoute = ({ component: Component }) => {
       if (sessionStorage.getItem("authToken")) {
         auth = sessionStorage.getItem("authToken");
         dispatch(setToken(auth));
+        axios.defaults.headers.common["Authorization"] = "Bearer " + auth;
+        getUser()
+          .then((data) => {
+            dispatch(setUser(data.data.data));
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       }
     }
 
@@ -27,7 +36,6 @@ const PublicRoute = ({ component: Component }) => {
       console.log("true");
       return true; // Token not found
     } else {
-      console.log("else condition");
       const now = new Date().getTime();
       if (authTokenTimestamp) {
         const timeElapsed = now - authTokenTimestamp;
