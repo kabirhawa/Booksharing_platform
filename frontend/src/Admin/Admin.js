@@ -7,7 +7,7 @@ function Admin(){
  
         return (
             <div>
-                {/* <Navbar/> */}
+                <Navbar/>
                 <div className="container-fluid" id="main">
                  <div className="row row-offcanvas row-offcanvas-left">
                    <Sidebar/>

@@ -30,17 +30,17 @@ export const Navbar = () => {
                         </li>
                         <li className="nav-item">
                   <a className="nav-link waves-effect waves-light text-white">
-                    <i className="fab fa-google-plus-g"></i>
+                    <i className="fa fa-google-plus-g"></i>
                   </a>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link waves-effect waves-light text-white">
-                        <i className="fas fa-envelope-open-text"></i>
+                        <i className="fa fa-envelope-open-text"></i>
                     </a>
                   </li>
                   <li className="nav-item">
                       <a className="nav-link waves-effect waves-light text-white">
-                          <i className="fas fa-align-justify"></i>
+                          <i className="fa fa-align-justify"></i>
                       </a>
                     </li>
                     </ul>

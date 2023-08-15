@@ -99,10 +99,10 @@ export class Footer extends Component {
                         className="mb-4 mt-0 d-inline-block mx-auto"
                         style={{width: "60px" ,backgroundColor: "#7c4dff", height: "2px"}}
                         />
-                    <p><i className="fas fa-home mr-3"></i> New York, NY 10012, US</p>
-                    <p><i className="fas fa-envelope mr-3"></i> info@example.com</p>
-                    <p><i className="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-                    <p><i className="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                    <p><i className="fa fa-home mr-3"></i> New York, NY 10012, US</p>
+                    <p><i className="fa fa-envelope mr-3"></i> info@example.com</p>
+                    <p><i className="fa fa-phone mr-3"></i> + 01 234 567 88</p>
+                    <p><i className="fa fa-print mr-3"></i> + 01 234 567 89</p>
                   </div>
 
                 </div>
