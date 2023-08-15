@@ -7,18 +7,47 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Box, Typography } from "@mui/material";
 // import { Box } from "@mui/material";
 const Crousal = (props) => {
   return (
-    <div className="carousel-container">
-      <h1>Welcome to Our Book Carousel</h1>
+    <Box className="carousel-container" sx={{ mb: 3, mt: 3 }}>
+      <Typography variant="h3">{props.title}</Typography>
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={50}
-        slidesPerView={3}
+        breakpoints={{
+          // when window width is >= 1280px (lg)
+          1280: {
+            slidesPerView: 6,
+            scrollbar: {
+              hide: true, // Hide scrollbar for this breakpoint
+            },
+          },
+          // when window width is >= 768px (md)
+          768: {
+            slidesPerView: 3,
+            scrollbar: {
+              hide: true, // Hide scrollbar for this breakpoint
+            },
+          },
+          600: {
+            slidesPerView: 2,
+            scrollbar: {
+              hide: true, // Hide scrollbar for this breakpoint
+            },
+          },
+          // when window width is >= 0px (sm)
+          0: {
+            slidesPerView: 1,
+            scrollbar: {
+              hide: true, // Hide scrollbar for this breakpoint
+            },
+          },
+        }}
         navigation
         pagination={{ clickable: true }}
-        scrollbar={{ draggable: true }}
+        scrollbar={{ draggable: true, hide: true }}
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log("slide change")}
       >
@@ -32,7 +61,7 @@ const Crousal = (props) => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </Box>
   );
 };
 
