@@ -5,6 +5,7 @@ import MainRoute from "./Routes/mainroute";
 
 import { Provider } from "react-redux";
 import store from "./store";
+import Admin from "./Admin/Admin"
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <Router>
-            
+
             <MainRoute />
            
           </Router>
