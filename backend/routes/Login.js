@@ -11,9 +11,9 @@ module.exports = function (router) {
       const mobile = req.body.mobile;
       const email = req.body.email;
       const country = req.body.country;
-      // const address=req.body.address
-      const password = req.body.password;
-      const existingUser = await db.findOne({ mobile });
+      const password=req.body.password
+      const role_Id = req.body.role_Id;
+      const existingUser = await db.findOne({ email });
      
 
         if (existingUser) {
@@ -27,7 +27,7 @@ module.exports = function (router) {
             country: country,
             password: hashedPassword,
             name: req.body.name,
-            // role_id: 1,
+            role_Id:role_Id ||1,
             verify: true,
 
           });
@@ -36,7 +36,8 @@ module.exports = function (router) {
           })
           creatusere.token[0] = token
           await creatusere.save();
-          res.status(200).json({ token: token, success: true, message: 'User registered successfully' });
+          const userdatas = await db.findOne(creatusere._id).select("-password -token");
+          res.status(200).json({ token: token,data:userdatas, success: true, message: 'User registered successfully' });
 
         }
       
@@ -69,7 +70,8 @@ module.exports = function (router) {
 
       user.token[0] = token
       await user.save();
-      res.status(200).json({ token: token, success: true, message: 'User Login successfully' });
+      const userdatas = await db.findOne(user._id).select("-password -token");
+      res.status(200).json({ token: token,data:userdatas, success: true, message: 'User Login successfully' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false, message: 'Internal server error' });
@@ -96,7 +98,44 @@ module.exports = function (router) {
 
  
 
+router.get("/getusers",async (req,res)=>{
+try {
+    var result= await db.find()
+    res.status(200).json({ success: true, data: result });
+} catch (error) {
+  res.status(500).json({ success: false, message: 'Internal server error' });
+console.log(error);
+}
+})
+router.delete("/deleteusers/:_id",async (req,res)=>{
+try {
+    var result= await db.findByIdAndDelete(req.params._id)
+    res.status(200).json({ success: true, message: "User successfully Deleted!" });
+} catch (error) {
+  res.status(500).json({ success: false, message: 'Internal server error' });
+console.log(error);
+}
+})
 
+
+router.put("/updateusers/:_id",async (req,res)=>{
+try {
+    var result= await db.findByIdAndUpdate(req.params._id,{$set:req.body})
+    res.status(200).json({ success: true, message: "User successfully Updated!" });
+} catch (error) {
+  res.status(500).json({ success: false, message: 'Internal server error' });
+console.log(error);
+}
+})
+router.get("/user/:_id",multe.any(),async (req,res)=>{
+try {
+    const result= await db.findById(req.params._id)
+    res.status(200).json({ success: true, data:result });
+} catch (error) {
+  res.status(500).json({ success: false, message: 'Internal server error' });
+console.log(error);
+}
+})
 
 
 

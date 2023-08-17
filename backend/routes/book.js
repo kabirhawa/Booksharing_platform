@@ -1,7 +1,7 @@
 const db = require("../db/book");
 const multer = require("multer")();
 const auth = require("../middleware/auth");
-
+const database = require("../db/login")
 module.exports = function (router) {
   //books uploud book image api is panding
   router.post("/bookinfo", multer.any(), auth, async (req, res) => {
@@ -27,7 +27,7 @@ module.exports = function (router) {
   });
 
   //books on home page
-  router.get("/booksget", auth, async (req, res) => {
+  router.get("/booksget", async (req, res) => {
     try {
       const data = await db.find();
       res.status(200).json({ success: true, data: data });
@@ -114,5 +114,65 @@ module.exports = function (router) {
       console.log(error);
     }
   });
+  
+  router.post("/inbox",auth,multer.any(),async(req,res)=>{
+var userid=req.decoded.userid
+console.log(userid);
+var bookid=req.body.bookid
+var bookownerid=req.body.bookownerid
+try {
+
+var inboxitem={
+  bookid:bookid,
+  userid:userid
+}
+
+  const user = await database.findById(bookownerid);
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  if (user.inbox.some(item => JSON.stringify(item) === JSON.stringify(inboxitem))) {
+    return res.status(400).json({ message: 'your message already sent' });
+  }
+  user.inbox.push(inboxitem);
+
+  // Save the updated user document
+  await user.save();
+  res.status(200).json({ success: true, data: user,message:"Your message successefully sent" });
+} catch (error) {
+  console.log(error);
+  res
+    .status(500)
+    .json({ success: false, message: "Internal server error" });
+}
+  })
+
+
+  router.delete('/inbox/:bookownerid',multer.any(), async (req, res) => {
+    try {
+      const { bookownerid } = req.params;
+      const { bookid, userId } = req.body;
+  
+      const user = await database.findById(bookownerid);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Use $pull to remove the item with matching bookid and bookownerid
+      user.inbox.pull({ bookid: bookid, userId: userId });
+  
+      // Save the updated user document
+      await user.save();
+  
+      res.status(200).json({ success: true, data: user, message: 'Item removed from inbox' });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+  })
   return router;
+
+
+
 };
