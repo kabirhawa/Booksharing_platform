@@ -1,16 +1,6 @@
-import {
-  Alert,
-  Button,
-  Checkbox,
-  Container,
-  FormControlLabel,
-  Grid,
-  Snackbar,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../Service/user.service";
 import { Formik } from "formik";
