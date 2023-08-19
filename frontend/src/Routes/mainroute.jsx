@@ -16,9 +16,9 @@ const MainRoute = () => {
 
   return (
     <>
-      {location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/admin" ? (
-        <></>
-      ) : (
+      {location.pathname === "/login" ||
+      location.pathname === "/register" ||
+      location.pathname === "/admin" ? null : (
         <Navbar />
       )}
       <Routes>
@@ -28,11 +28,10 @@ const MainRoute = () => {
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/User" element={<AdminUser />} />
-
-
-
       </Routes>
-      {location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/admin" ? (
+      {location.pathname === "/login" ||
+      location.pathname === "/register" ||
+      location.pathname === "/admin" ? (
         <></>
       ) : (
         <Footer />

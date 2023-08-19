@@ -7,6 +7,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { showSnakbar } from "../store/slices/snakbar";
+import { loginImage } from "../images/loginRegister";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,14 @@ const Register = () => {
     country: Yup.string().required(),
   });
   return (
-    <Box>
+    <Box
+      sx={{
+        backgroundImage: `url(${loginImage})`,
+        height: "100vh",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       {/* <Snackbar
         open={openAlert}
         autoHideDuration={3000}
@@ -78,17 +86,18 @@ const Register = () => {
         }}
       >
         {({ errors, touched, handleSubmit, handleChange, handleBlur }) => (
-          <Container component="main" maxWidth="sm">
+          <Container component="main" maxWidth="sm" sx={{ pt: 1 }}>
             <Box
               sx={{
                 boxShadow: 3,
                 borderRadius: 2,
                 px: 4,
-                py: 6,
-                marginTop: 8,
+                py: 4,
+
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                backgroundColor: "white",
               }}
             >
               <Typography component="h1" variant="h5">
@@ -173,7 +182,7 @@ const Register = () => {
                 </Button>
                 <Grid container>
                   <Grid item>
-                    <Link href="/login" variant="body2">
+                    <Link to="/login" variant="body2">
                       {"Already have account? sign-in"}
                     </Link>
                   </Grid>
