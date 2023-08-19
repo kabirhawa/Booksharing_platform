@@ -10,7 +10,7 @@ const Home = lazy(() => import("../Pages/home"));
 
 const MainRoute = () => {
   const location = useLocation();
-  console.log(location.pathname);
+
   return (
     <>
       {location.pathname === "/login" || location.pathname === "/register" ? (
@@ -28,7 +28,6 @@ const MainRoute = () => {
       ) : (
         <Footer />
       )}
-      
     </>
   );
 };
