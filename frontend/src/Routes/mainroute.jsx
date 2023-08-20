@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 import { Routes, useLocation } from "react-router-dom";
 import { Route } from "react-router-dom";
 import Login from "../Pages/login";
-import Navbar from "../components/partials/Navbar";
+
 import Register from "../Pages/Register";
 import Admin from "../Admin/Admin";
 import PublicRoute from "../Middleware/PublicRoute";
