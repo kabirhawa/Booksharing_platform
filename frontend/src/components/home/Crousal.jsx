@@ -10,9 +10,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Box, Typography } from "@mui/material";
 // import { Box } from "@mui/material";
 const Crousal = (props) => {
+  document.documentElement.style.setProperty(
+    "--swiper-pagination-bottom",
+    "0px"
+  );
   return (
-    <Box className="carousel-container" sx={{ mb: 3, mt: 3 }}>
+    <Box className="carousel-container" sx={{ m: 3 }}>
       <Typography variant="h3">{props.title}</Typography>
+
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={50}
