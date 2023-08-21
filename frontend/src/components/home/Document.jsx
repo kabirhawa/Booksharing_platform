@@ -40,12 +40,12 @@ const Document = () => {
   return (
     <>
       <Carousel
-        indicators={false}
+        indicators={true}
         animation="fade"
         autoPlay={true}
-        interval={10000}
+        interval={4000}
         stopAutoPlayOnHover={false}
-        navButtonsAlwaysInvisible={true}
+        navButtonsAlwaysInvisible={false}
       >
         {descData.map((item, index) => (
           <Item key={index} item={item} />

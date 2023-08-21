@@ -9,6 +9,8 @@ import PublicRoute from "../Middleware/PublicRoute";
 import Footer from "../components/partials/Footer";
 import Dashboard from "../Admin/Dashboard";
 import AdminUser from "../Admin/component/User";
+import Sidebar from "../Admin/Sidebar";
+import Sidebar2 from "../Admin/SideBar2";
 const Home = lazy(() => import("../Pages/home"));
 
 const MainRoute = () => {
@@ -16,7 +18,10 @@ const MainRoute = () => {
   console.log(location.pathname);
   return (
     <>
-      {location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/admin" ? (
+      {location.pathname === "/login" ||
+      location.pathname === "/register" ||
+      location.pathname === "/admin/dashboard" ||
+      location.pathname === "/admin" ? (
         <></>
       ) : (
         <Navbar />
@@ -25,19 +30,20 @@ const MainRoute = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<PublicRoute component={Home} />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/User" element={<AdminUser />} />
-
-
-
+        <Route path="/admin" element={<Sidebar2 Component={Dashboard} />} />
+        <Route
+          path="/admin/User"
+          element={<Sidebar2 component={AdminUser} />}
+        />
       </Routes>
-      {location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/admin" ? (
+      {location.pathname === "/login" ||
+      location.pathname === "/register" ||
+      location.pathname === "/admin/dashboard" ||
+      location.pathname === "/admin" ? (
         <></>
       ) : (
         <Footer />
       )}
-      
     </>
   );
 };
