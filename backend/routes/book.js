@@ -2,8 +2,6 @@ const db = require("../db/book");
 const multer = require("multer")();
 const auth = require("../middleware/auth");
 const database = require("../db/login")
-const Redis = require('ioredis');
-const redis = new Redis('rediss://red-cjhgavr6fquc73bpdf4g:HMEWicbfLH9qeOpEMo2sSdq5i1mBQibh@oregon-redis.render.com:6379');
 module.exports = function (router) {
   //books uploud book image api is panding
   router.post("/bookinfo", multer.any(), auth, async (req, res) => {
@@ -19,7 +17,6 @@ module.exports = function (router) {
 
       const datas = await db(data);
       await datas.save();
-      await redis.del('items');
       res
         .status(200)
         .json({ success: true, message: "book info submited successfully" });
@@ -32,14 +29,8 @@ module.exports = function (router) {
   //books on home page
   router.get("/booksget", async (req, res) => {
     try {
-      const cachedItems = await redis.get('items');
-      if(cachedItems){
-        res.json({ success: true, data: JSON.parse(cachedItems) });
-      }else{
       const data = await db.find();
       res.status(200).json({ success: true, data: data });
-      await redis.set('items', JSON.stringify(items));
-    }
     } catch (error) {
       console.log(error);
       res
