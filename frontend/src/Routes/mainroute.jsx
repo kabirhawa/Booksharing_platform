@@ -26,7 +26,7 @@ const MainRoute = () => {
       location.pathname === "/admin" ? (
         <></>
       ) : (
-        <Navbar />
+        <Navbar2 />
       )}
       <Routes>
         <Route path="/login" element={<Login />} />
