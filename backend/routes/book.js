@@ -2,6 +2,7 @@ const db = require("../db/book");
 const multer = require("multer")();
 const auth = require("../middleware/auth");
 const database = require("../db/login")
+
 module.exports = function (router) {
   //books uploud book image api is panding
   router.post("/bookinfo", multer.any(), auth, async (req, res) => {
@@ -122,9 +123,14 @@ var bookid=req.body.bookid
 var bookownerid=req.body.bookownerid
 try {
 
+if(!req.body.message){
+  return res.status(404).json({ message: 'please write something in message' });
+}
+
 var inboxitem={
   bookid:bookid,
-  userid:userid
+  userid:userid,
+  message:req.body.message
 }
 
   const user = await database.findById(bookownerid);
@@ -132,9 +138,9 @@ var inboxitem={
     return res.status(404).json({ message: 'User not found' });
   }
 
-  if (user.inbox.some(item => JSON.stringify(item) === JSON.stringify(inboxitem))) {
-    return res.status(400).json({ message: 'your message already sent' });
-  }
+  // if (user.inbox.some(item => JSON.stringify(item) === JSON.stringify(inboxitem))) {
+  //   return res.status(400).json({ message: 'your message already sent' });
+  // }
   user.inbox.push(inboxitem);
 
   // Save the updated user document
@@ -149,10 +155,12 @@ var inboxitem={
   })
 
 
-  router.delete('/inbox/:bookownerid',multer.any(), async (req, res) => {
+  router.delete('/inbox/:_id',auth, multer.any(), async (req, res) => {
     try {
-      const { bookownerid } = req.params;
-      const { bookid, userId } = req.body;
+      const  bookownerid  = req.decoded.userid;
+      console.log(bookownerid)
+      const { _id } = req.params;
+      console.log(_id)
   
       const user = await database.findById(bookownerid);
       if (!user) {
@@ -160,17 +168,65 @@ var inboxitem={
       }
   
       // Use $pull to remove the item with matching bookid and bookownerid
-      user.inbox.pull({ bookid: bookid, userId: userId });
+      user.inbox.pull({ _id: _id});
   
       // Save the updated user document
-      await user.save();
+     const result= await user.save();
   
-      res.status(200).json({ success: true, data: user, message: 'Item removed from inbox' });
+      res.status(200).json({ success: true, data: result, message: 'Item removed from inbox' });
     } catch (error) {
       console.log(error);
       res.status(500).json({ success: false, message: 'Internal server error' });
     }
   })
+
+
+router.post("/favorite/:_id", auth,multer.any(), async (req,res)=>{
+try {
+    var userid=req.decoded.userid
+    const user = await database.findById(userid);
+    if(!user){
+      return res.status(404).json({ message: 'User not found' });
+    }
+   var favoriteitem={
+    bookid:req.params._id
+   }
+    user.favorite.push(favoriteitem);
+ var result= await user.save()
+  res.status(200).json({ success: true, data: result, message: 'book add successfully' });
+} catch (error) {
+  console.log(error);
+  res.status(500).json({ success: false, message: 'Internal server error' });
+
+}
+
+})
+
+
+router.delete('/favorite/:_id',auth, multer.any(), async (req, res) => {
+  try {
+    const  userid  = req.decoded.userid;
+    console.log(userid)
+    const { _id } = req.params;
+    console.log(_id)
+
+    const user = await database.findById(userid);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Use $pull to remove the item with matching bookid and bookownerid
+    user.favorite.pull({ _id: _id});
+
+    // Save the updated user document
+   const result= await user.save();
+
+    res.status(200).json({ success: true, data: result, message: 'Item removed from inbox' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+})
   return router;
 
 
