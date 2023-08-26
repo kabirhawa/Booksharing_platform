@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userSlice } from "./slices/user";
+import { snakbarSlice } from "./slices/snakbar";
 
 const rootReducer = {
   user: userSlice.reducer, // Access the reducer field of userSlice
-  // Add other reducers here if needed
+  snakbar: snakbarSlice.reducer, //for snakbar alert
 };
 
 const store = configureStore({

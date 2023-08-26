@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 import { Routes, useLocation } from "react-router-dom";
 import { Route } from "react-router-dom";
 import Login from "../Pages/login";
-import Navbar from "../components/partials/Navbar";
+
 import Register from "../Pages/Register";
 import Admin from "../Admin/Admin";
 import PublicRoute from "../Middleware/PublicRoute";
@@ -11,11 +11,14 @@ import Dashboard from "../Admin/Dashboard";
 import AdminUser from "../Admin/component/User";
 import Sidebar from "../Admin/Sidebar";
 import Sidebar2 from "../Admin/SideBar2";
+import Navbar2 from "../components/partials/Navbar2";
+
 const Home = lazy(() => import("../Pages/home"));
+const Search = lazy(() => import("../Pages/Search"));
 
 const MainRoute = () => {
   const location = useLocation();
-  console.log(location.pathname);
+
   return (
     <>
       {location.pathname === "/login" ||
@@ -24,11 +27,12 @@ const MainRoute = () => {
       location.pathname === "/admin" ? (
         <></>
       ) : (
-        <Navbar />
+        <Navbar2 />
       )}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<PublicRoute component={Home} />} />
+        <Route path="/search" element={<PublicRoute component={Search} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Sidebar2 Component={Dashboard} />} />
         <Route

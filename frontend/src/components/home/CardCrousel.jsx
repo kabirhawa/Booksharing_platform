@@ -92,7 +92,7 @@ const CardCrousel = ({ title, description, imageUrl }) => {
             {description}
           </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
           <ThemeProvider theme={theme}>
             <Button onClick={handleSwitchChange}>
               {isFavorite ? (
@@ -102,7 +102,6 @@ const CardCrousel = ({ title, description, imageUrl }) => {
               )}
             </Button>
           </ThemeProvider>
-
           <Button onClick={handleClickOpen}>
             <PersonAddIcon />
           </Button>

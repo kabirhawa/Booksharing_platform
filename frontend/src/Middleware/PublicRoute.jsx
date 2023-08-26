@@ -40,7 +40,7 @@ const PublicRoute = ({ component: Component }) => {
       if (authTokenTimestamp) {
         const timeElapsed = now - authTokenTimestamp;
         const twentyFourHoursInMillis = 24 * 60 * 60 * 1000;
-
+        console.log("here true");
         return timeElapsed < twentyFourHoursInMillis;
       } else {
         return false;
