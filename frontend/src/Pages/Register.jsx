@@ -1,6 +1,16 @@
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../Service/user.service";
 import { Formik } from "formik";
@@ -12,7 +22,11 @@ import { loginImage } from "../images/loginRegister";
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
+  const handlePasswordVisibilityToggle = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   const RegisterSchema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email address format")
@@ -165,8 +179,21 @@ const Register = () => {
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={handlePasswordVisibilityToggle}>
+                          {showPassword ? (
+                            <VisibilityIcon />
+                          ) : (
+                            <VisibilityOffIcon />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                   autoComplete="current-password"
                   error={touched.password && !!errors.password}
                   helperText={touched.password && errors.password}

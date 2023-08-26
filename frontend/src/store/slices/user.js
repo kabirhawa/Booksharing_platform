@@ -14,10 +14,10 @@ export const userSlice = createSlice({
       state.user = action.payload;
     },
     logout: (state, action) => {
-      state.user = null;
-      state.token = null;
-      sessionStorage.setItem("authToken", null);
-      sessionStorage.setItem("authTokenTimestamp", null);
+      state.user = '';
+      state.token = '';
+      sessionStorage.setItem("authToken", '');
+      sessionStorage.setItem("authTokenTimestamp", '');
     },
   },
 });

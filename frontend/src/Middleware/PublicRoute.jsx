@@ -30,6 +30,7 @@ const PublicRoute = ({ component: Component }) => {
     console.log("called");
     var authTokenTimestamp = sessionStorage.getItem("authTokenTimestamp");
 
+
     if (!userState || !user) {
       handleAsyncOperations();
     }

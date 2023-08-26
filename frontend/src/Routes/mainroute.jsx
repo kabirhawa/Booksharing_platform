@@ -12,9 +12,12 @@ import AdminUser from "../Admin/component/User";
 import Navbar2 from "../components/partials/Navbar2";
 
 import Sidebar2 from "../Admin/SideBar2";
+import { PrivateRoute } from "../Middleware/privateRoute";
 const Home = lazy(() => import("../Pages/home"));
 const Profile = lazy(() => import("../Pages/profile"));
 const Search = lazy(() => import("../Pages/Search"));
+const Wishlist = lazy(() => import("../Pages/wishlist"));
+const PageNotFound = lazy(() => import("../Pages/pagenotfound"));
 
 const MainRoute = () => {
   const location = useLocation();
@@ -33,13 +36,20 @@ const MainRoute = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<PublicRoute component={Home} />} />
         <Route path="/search" element={<PublicRoute component={Search} />} />
-        <Route path="/profile" element={<PublicRoute component={Profile} />} />
+        <Route path="/profile" element={<PrivateRoute component={Profile} />} />
+        <Route
+          path="/wishlist"
+          element={<PrivateRoute component={Wishlist} />}
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Sidebar2 Component={Dashboard} />} />
         <Route
           path="/admin/User"
           element={<Sidebar2 component={AdminUser} />}
         />
+
+        {/* Route for Page Not Found */}
+        {/* <Route path="/*" element={PageNotFound} /> */}
       </Routes>
       {location.pathname === "/login" ||
       location.pathname === "/register" ||

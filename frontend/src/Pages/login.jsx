@@ -2,21 +2,29 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { login } from "../Service/user.service";
+import { getUser, login } from "../Service/user.service";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setToken } from "../store/slices/user";
+import { setToken, setUser } from "../store/slices/user";
 import { showSnakbar } from "../store/slices/snakbar";
 import { loginImage } from "../images/loginRegister";
+import axios from "axios";
+import { IconButton, InputAdornment } from "@mui/material";
+import { useState } from "react";
 
 export default function SignIn() {
+  const [showPassword, setShowPassword] = useState(false);
+  const handlePasswordVisibilityToggle = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email address format")
@@ -27,6 +35,8 @@ export default function SignIn() {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+
 
   return (
     <Box
@@ -49,15 +59,20 @@ export default function SignIn() {
               sessionStorage.setItem("authToken", authToken);
               sessionStorage.setItem("authTokenTimestamp", now);
               dispatch(setToken(response.data.token));
-              dispatch(
-                showSnakbar({
-                  message: "Login Success",
-                  open: true,
-                  type: "success",
-                })
-              );
+              axios.defaults.headers.common["Authorization"] =
+                "Bearer " + authToken;
+              getUser().then((response) => {
+                dispatch(setUser(response.data.data));
+                dispatch(
+                  showSnakbar({
+                    message: "Login Success",
+                    open: true,
+                    type: "success",
+                  })
+                );
 
-              navigate("/");
+                navigate("/");
+              });
             })
             .catch((error) => {
               dispatch(
@@ -112,8 +127,21 @@ export default function SignIn() {
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={handlePasswordVisibilityToggle}>
+                          {showPassword ? (
+                            <VisibilityIcon />
+                          ) : (
+                            <VisibilityOffIcon />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                   autoComplete="current-password"
                   error={touched.password && !!errors.password}
                   helperText={touched.password && errors.password}

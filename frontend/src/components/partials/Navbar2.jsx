@@ -192,8 +192,20 @@ function Navbar2() {
           </Search>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
-              key={"wishlist"}
+              key={"Requests"}
               onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              requests
+            </Button>
+            <Button
+              key={"wishlist"}
+              onClick={() => {
+                handleCloseNavMenu();
+                React.startTransition(() => {
+                  navigate("/wishlist");
+                });
+              }}
               sx={{ my: 2, color: "white", display: "block" }}
             >
               wishlist

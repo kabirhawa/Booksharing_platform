@@ -132,6 +132,8 @@ const Profile = () => {
                     label="name"
                     name="name"
                     variant="standard"
+                    error={touched.name && !!errors.name}
+                    helperText={touched.name && errors.name}
                   />
                 </Grid>
                 <Grid xs={1} sm={1} md={1} lg={1} xl={2}></Grid>
@@ -145,6 +147,8 @@ const Profile = () => {
                     id="filled-basic"
                     label="email"
                     variant="standard"
+                    error={touched.email && !!errors.email}
+                    helperText={touched.email && errors.email}
                   />
                 </Grid>
               </Grid>
@@ -159,9 +163,11 @@ const Profile = () => {
                     id="filled-basic"
                     label="mobile number"
                     variant="standard"
+                    error={touched.mobile && !!errors.mobile}
+                    helperText={touched.mobile && errors.mobile}
                   />
                 </Grid>
-                <Grid xs={0} sm={0} md={1} lg={1} xl={2}></Grid>
+                <Grid xs={12} sm={12} md={1} lg={1} xl={2}></Grid>
                 <Grid xs={12} sm={12} md={5} lg={5} xl={5}>
                   <TextField
                     fullWidth
@@ -172,6 +178,8 @@ const Profile = () => {
                     id="filled-basic"
                     label="country"
                     variant="standard"
+                    error={touched.country && !!errors.country}
+                    helperText={touched.country && errors.country}
                   />
                 </Grid>
               </Grid>
@@ -202,9 +210,11 @@ const Profile = () => {
                           </InputAdornment>
                         ),
                       }}
+                      error={touched.password && !!errors.password}
+                      helperText={touched.password && errors.password}
                     />
                   </Grid>
-                  <Grid xs={0} sm={0} md={1} lg={1} xl={2}></Grid>
+                  <Grid xs={1} sm={1} md={1} lg={1} xl={2}></Grid>
                   <Grid xs={12} sm={12} md={5} lg={5} xl={5}>
                     <TextField
                       fullWidth
@@ -229,6 +239,12 @@ const Profile = () => {
                         ),
                       }}
                       label="Confirm password"
+                      error={
+                        touched.confirmPassword && !!errors.confirmPassword
+                      }
+                      helperText={
+                        touched.confirmPassword && errors.confirmPassword
+                      }
                       variant="standard"
                     />
                   </Grid>
