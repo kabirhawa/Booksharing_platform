@@ -24,7 +24,7 @@ const Crousal = (props) => {
         breakpoints={{
           // when window width is >= 1280px (lg)
           1280: {
-            slidesPerView: 6,
+            slidesPerView: 5,
             scrollbar: {
               hide: true, // Hide scrollbar for this breakpoint
             },

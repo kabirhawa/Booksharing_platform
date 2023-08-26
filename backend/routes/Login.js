@@ -66,11 +66,11 @@ module.exports = function (router) {
       const password = req.body.password;
 
       const user = await db.findOne({ email });
-      if (!user || user.role_Id != req.body.role_Id) {
-        return res
-          .status(401)
-          .json({ success: false, message: "Invalid credentials" });
-      }
+      // if (!user || user.role_Id != req.body.role_Id) {
+      //   return res
+      //     .status(401)
+      //     .json({ success: false, message: "Invalid credentials" });
+      // }
 
       const isPasswordValid = await bcrypt.compare(password, user.password);
 

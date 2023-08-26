@@ -4,15 +4,16 @@ import { Route } from "react-router-dom";
 import Login from "../Pages/login";
 
 import Register from "../Pages/Register";
-import Admin from "../Admin/Admin";
+
 import PublicRoute from "../Middleware/PublicRoute";
 import Footer from "../components/partials/Footer";
 import Dashboard from "../Admin/Dashboard";
 import AdminUser from "../Admin/component/User";
 import Navbar2 from "../components/partials/Navbar2";
-import Sidebar from "../Admin/Sidebar";
+
 import Sidebar2 from "../Admin/SideBar2";
 const Home = lazy(() => import("../Pages/home"));
+const Profile = lazy(() => import("../Pages/profile"));
 const Search = lazy(() => import("../Pages/Search"));
 
 const MainRoute = () => {
@@ -32,6 +33,7 @@ const MainRoute = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<PublicRoute component={Home} />} />
         <Route path="/search" element={<PublicRoute component={Search} />} />
+        <Route path="/profile" element={<PublicRoute component={Profile} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Sidebar2 Component={Dashboard} />} />
         <Route

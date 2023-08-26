@@ -16,10 +16,12 @@ export const userSlice = createSlice({
     logout: (state, action) => {
       state.user = null;
       state.token = null;
+      sessionStorage.setItem("authToken", null);
+      sessionStorage.setItem("authTokenTimestamp", null);
     },
   },
 });
 
-export const { setToken, setUser } = userSlice.actions;
+export const { setToken, setUser,logout } = userSlice.actions;
 
 export default userSlice.reducer;

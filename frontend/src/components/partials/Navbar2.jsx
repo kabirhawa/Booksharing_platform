@@ -14,11 +14,12 @@ import MenuItem from "@mui/material/MenuItem";
 import logo from "../../logo/bLogo.jpg";
 import InputBase from "@mui/material/InputBase";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
+import { logout } from "../../store/slices/user";
 
 const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+// const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar2() {
   const navigate = useNavigate();
@@ -83,6 +84,7 @@ function Navbar2() {
       },
     },
   }));
+  const dispatch = useDispatch();
   return (
     <AppBar position="sticky" sx={{ backgroundColor: "#1C2331" }}>
       <Container maxWidth="xl">
@@ -141,11 +143,30 @@ function Navbar2() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem
+                key={"Profile"}
+                onClick={() => {
+                  handleCloseNavMenu();
+                  React.startTransition(() => {
+                    navigate("/profile", { state: user });
+                  });
+                }}
+              >
+                <Typography textAlign="center">Profile</Typography>
+              </MenuItem>
+              <MenuItem key={"my books"} onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">My Books</Typography>
+              </MenuItem>
+              <MenuItem
+                key={"Logout"}
+                onClick={() => {
+                  dispatch(logout());
+                  handleCloseNavMenu();
+                  navigate("/login");
+                }}
+              >
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
 
@@ -170,21 +191,22 @@ function Navbar2() {
             />
           </Search>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              key={"wishlist"}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              wishlist
+            </Button>
           </Box>
 
           {token ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <IconButton
+                  onClick={handleOpenUserMenu}
+                  sx={{ p: 0, color: "white" }}
+                >
                   {user?.name.split(" ")[0]}
                 </IconButton>
               </Tooltip>
@@ -204,11 +226,30 @@ function Navbar2() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem
+                  key={"Profile"}
+                  onClick={() => {
+                    handleCloseNavMenu();
+                    React.startTransition(() => {
+                      navigate("/profile", { state: user });
+                    });
+                  }}
+                >
+                  <Typography textAlign="center">Profile</Typography>
+                </MenuItem>
+                <MenuItem key={"mybooks"} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">My Books</Typography>
+                </MenuItem>
+                <MenuItem
+                  key={"Logout"}
+                  onClick={() => {
+                    dispatch(logout());
+                    handleCloseNavMenu();
+                    navigate("/login");
+                  }}
+                >
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
               </Menu>
             </Box>
           ) : (

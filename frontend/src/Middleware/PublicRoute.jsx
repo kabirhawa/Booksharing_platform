@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken, setUser } from "../store/slices/user";
 import { Navigate } from "react-router-dom";
@@ -9,30 +9,32 @@ const PublicRoute = ({ component: Component }) => {
   // console.log("public route called");
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user).token;
+  const user = useSelector((state) => state.user).user;
 
+  const handleAsyncOperations = useCallback(async () => {
+    console.log("Async operations started");
+
+    try {
+      if (!userState && !user && sessionStorage.getItem("authToken")) {
+        const auth = sessionStorage.getItem("authToken");
+        dispatch(setToken(auth));
+        axios.defaults.headers.common["Authorization"] = "Bearer " + auth;
+        const response = await getUser();
+        dispatch(setUser(response.data.data));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [dispatch, userState, user]);
   const isTokenValid = () => {
     console.log("called");
     var authTokenTimestamp = sessionStorage.getItem("authTokenTimestamp");
 
-    let auth = null;
-    if (userState) {
-      auth = userState;
-    } else {
-      if (sessionStorage.getItem("authToken")) {
-        auth = sessionStorage.getItem("authToken");
-        dispatch(setToken(auth));
-        axios.defaults.headers.common["Authorization"] = "Bearer " + auth;
-        getUser()
-          .then((data) => {
-            dispatch(setUser(data.data.data));
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      }
+    if (!userState || !user) {
+      handleAsyncOperations();
     }
 
-    if (!auth) {
+    if (!userState) {
       console.log("true");
       return true; // Token not found
     } else {
