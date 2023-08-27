@@ -17,7 +17,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
-const CardCrousel = ({ title, description, imageUrl }) => {
+const CardCrousel = ({ title, description, imageUrl, id }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [request, setRequest] = useState();
@@ -33,7 +33,9 @@ const CardCrousel = ({ title, description, imageUrl }) => {
     setOpen(false);
   };
 
-  const handleSwitchChange = () => {
+  const handleSwitchChange = (event) => {
+    console.log(event.target.value);
+
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
   };
 
@@ -94,7 +96,7 @@ const CardCrousel = ({ title, description, imageUrl }) => {
         </CardContent>
         <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
           <ThemeProvider theme={theme}>
-            <Button onClick={handleSwitchChange}>
+            <Button value={id} onClick={handleSwitchChange}>
               {isFavorite ? (
                 <FavoriteIcon color="pink" />
               ) : (

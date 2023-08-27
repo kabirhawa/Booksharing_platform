@@ -59,6 +59,7 @@ const Crousal = (props) => {
         {props.cards.map((card) => (
           <SwiperSlide>
             <CardCrousel
+              id={card._id}
               title={card.title}
               description={card.description}
               imageUrl={card.imageUrl}

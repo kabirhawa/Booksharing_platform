@@ -16,3 +16,7 @@ export function getUser() {
 export function updateUsers(userid, reqData) {
   return axios.put(`${URL}/updateusers/${userid}`, reqData);
 }
+
+export function addToWishlist( reqData) {
+  return axios.put(`${URL}/favorite`, reqData);
+}

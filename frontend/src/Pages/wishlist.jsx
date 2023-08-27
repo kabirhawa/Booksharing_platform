@@ -32,28 +32,27 @@ const WishListCard = ({ imageUrl, title, description }) => {
   );
 };
 const Wishlist = () => {
-  console.log("here is wishlist");
   return (
     <Box>
-      <Grid container>
-        <Grid xl={5} lg={5} md={3} sm={2} xs={1} sx={{ mt: 2, mb: 2 }}>
+      <Grid container spacing={2}>
+        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
           <WishListCard
             title="Brain Activity Book for Kids"
-            description="The 200+ activities book is ideal to introduce math, language and logic to preschoolers. The colourfully illustrated pages have been designed in a creative manner to teach a variety of skills through fun-filled activities and puzzles and promises to keep your child engaged in hours of learning. Let the fun begin!"
+            description="..."
             imageUrl={image1}
           />
         </Grid>
-        <Grid sx={{ mt: 2, mb: 2 }} lg={5} md={3} sm={2} xs={1}>
+        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
           <WishListCard
             title="Brain Activity Book for Kids"
-            description="The 200+ activities book is ideal to introduce math, language and logic to preschoolers. The colourfully illustrated pages have been designed in a creative manner to teach a variety of skills through fun-filled activities and puzzles and promises to keep your child engaged in hours of learning. Let the fun begin!"
+            description="..."
             imageUrl={image2}
           />
         </Grid>
-        <Grid sx={{ mt: 2, mb: 2 }} lg={5} md={3} sm={2} xs={1}>
+        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
           <WishListCard
             title="Brain Activity Book for Kids"
-            description="The 200+ activities book is ideal to introduce math, language and logic to preschoolers. The colourfully illustrated pages have been designed in a creative manner to teach a variety of skills through fun-filled activities and puzzles and promises to keep your child engaged in hours of learning. Let the fun begin!"
+            description="..."
             imageUrl={image3}
           />
         </Grid>

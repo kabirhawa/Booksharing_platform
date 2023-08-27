@@ -147,9 +147,8 @@ function Navbar2() {
                 key={"Profile"}
                 onClick={() => {
                   handleCloseNavMenu();
-                  React.startTransition(() => {
-                    navigate("/profile", { state: user });
-                  });
+
+                  navigate("/profile", { state: user });
                 }}
               >
                 <Typography textAlign="center">Profile</Typography>
@@ -179,10 +178,9 @@ function Navbar2() {
               onKeyDown={(event) => {
                 if (event.key === "Enter" && event.target.value.trim() !== "") {
                   // Call your function here
-                  React.startTransition(() => {
-                    navigate("/search", {
-                      state: { value: event.target.value.trim() },
-                    });
+
+                  navigate("/search", {
+                    state: { value: event.target.value.trim() },
                   });
                 }
               }}
@@ -202,9 +200,8 @@ function Navbar2() {
               key={"wishlist"}
               onClick={() => {
                 handleCloseNavMenu();
-                React.startTransition(() => {
-                  navigate("/wishlist");
-                });
+
+                navigate("/wishlist");
               }}
               sx={{ my: 2, color: "white", display: "block" }}
             >
@@ -242,14 +239,20 @@ function Navbar2() {
                   key={"Profile"}
                   onClick={() => {
                     handleCloseNavMenu();
-                    React.startTransition(() => {
-                      navigate("/profile", { state: user });
-                    });
+
+                    navigate("/profile", { state: user });
                   }}
                 >
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-                <MenuItem key={"mybooks"} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={"mybooks"}
+                  onClick={() => {
+                    handleCloseNavMenu();
+
+                    navigate("/mybooks");
+                  }}
+                >
                   <Typography textAlign="center">My Books</Typography>
                 </MenuItem>
                 <MenuItem
