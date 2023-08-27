@@ -66,7 +66,7 @@ module.exports = function (router) {
       const password = req.body.password;
 
       const user = await db.findOne({ email });
-      if (!user || user.role_Id != req.body.role_Id) {
+      if (!user) {
         return res
           .status(401)
           .json({ success: false, message: "Invalid credentials" });
