@@ -18,8 +18,6 @@ module.exports = function (router) {
       const role_Id = req.body.role_Id;
       const existingUser = await db.findOne({ email });
 
-
-
       if (existingUser) {
         return res
           .status(409)
@@ -44,14 +42,12 @@ module.exports = function (router) {
         const userdatas = await db
           .findOne(creatusere._id)
           .select("-password -token");
-        res
-          .status(200)
-          .json({
-            token: token,
-            data: userdatas,
-            success: true,
-            message: "User registered successfully",
-          });
+        res.status(200).json({
+          token: token,
+          data: userdatas,
+          success: true,
+          message: "User registered successfully",
+        });
       }
     } catch (error) {
       console.error(error);
@@ -91,14 +87,12 @@ module.exports = function (router) {
       user.token[0] = token;
       await user.save();
       const userdatas = await db.findOne(user._id).select("-password -token");
-      res
-        .status(200)
-        .json({
-          token: token,
-          data: userdatas,
-          success: true,
-          message: "User Login successfully",
-        });
+      res.status(200).json({
+        token: token,
+        data: userdatas,
+        success: true,
+        message: "User Login successfully",
+      });
     } catch (error) {
       console.error(error);
       res
@@ -168,6 +162,36 @@ module.exports = function (router) {
     try {
       const result = await db.findById(req.params._id);
       res.status(200).json({ success: true, data: result });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+      console.log(error);
+    }
+  });
+
+  router.post("/newpasss", multe.any(), auth, async (req, res) => {
+    try {
+      const newpass = req.body.newpassword;
+      const oldpass = req.body.oldpassword;
+      const userid = req.decoded.userid;
+      const userdatas = await db.findById(userid);
+      if(!userdatas){
+       return res.status(401).json({ success: false, message: "User not exists" });
+      }
+      const isPasswordValid = await bcrypt.compare(oldpass, userdatas.password);
+      if (!isPasswordValid) {
+        return res
+          .status(401)
+          .json({ success: false, message: "Invalid credentials" });
+      } else {
+        const udpass = await bcrypt.hash(newpass, 10);
+        userdatas.password = udpass;
+        await userdatas.save();
+        return res
+          .status(200)
+          .json({ success: true, message: "Password updated successfully" });
+      }
     } catch (error) {
       res
         .status(500)
