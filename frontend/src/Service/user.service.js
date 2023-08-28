@@ -12,3 +12,7 @@ export function login(rowdata) {
 export function getUser() {
   return axios.get(`${URL}/home`); // Adjust the HTTP method and parameters as needed
 }
+
+export function allUser() {
+  return axios.get(`${URL}/getusers`); // Adjust the HTTP method and parameters as needed
+}

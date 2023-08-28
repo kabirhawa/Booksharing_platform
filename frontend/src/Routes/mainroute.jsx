@@ -2,14 +2,13 @@ import React, { lazy } from "react";
 import { Routes, useLocation } from "react-router-dom";
 import { Route } from "react-router-dom";
 import Login from "../Pages/login";
-
 import Register from "../Pages/Register";
-import Admin from "../Admin/Admin";
 import PublicRoute from "../Middleware/PublicRoute";
 import Footer from "../components/partials/Footer";
 import Dashboard from "../Admin/Dashboard";
-import AdminUser from "../Admin/component/User";
-import Sidebar from "../Admin/Sidebar";
+import User1 from "../Admin/component/User";
+import CreateUser from "../Admin/component/CreateUser";
+
 import Sidebar2 from "../Admin/SideBar2";
 import Navbar2 from "../components/partials/Navbar2";
 
@@ -23,7 +22,8 @@ const MainRoute = () => {
     <>
       {location.pathname === "/login" ||
       location.pathname === "/register" ||
-      location.pathname === "/admin/dashboard" ||
+      location.pathname === "/admin/User" ||
+      location.pathname === "/admin/User/create" ||
       location.pathname === "/admin" ? (
         <></>
       ) : (
@@ -37,12 +37,17 @@ const MainRoute = () => {
         <Route path="/admin" element={<Sidebar2 Component={Dashboard} />} />
         <Route
           path="/admin/User"
-          element={<Sidebar2 component={AdminUser} />}
+          element={<Sidebar2 Component={User1} />}
+        />
+        <Route
+          path="/admin/User/create"
+          element={<Sidebar2 Component={CreateUser} />}
         />
       </Routes>
       {location.pathname === "/login" ||
       location.pathname === "/register" ||
-      location.pathname === "/admin/dashboard" ||
+      location.pathname === "/admin/User" ||
+      location.pathname === "/admin/User/create" ||
       location.pathname === "/admin" ? (
         <></>
       ) : (
