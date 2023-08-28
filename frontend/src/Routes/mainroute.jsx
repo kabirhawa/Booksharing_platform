@@ -7,6 +7,10 @@ import PublicRoute from "../Middleware/PublicRoute";
 import Footer from "../components/partials/Footer";
 import Dashboard from "../Admin/Dashboard";
 import User1 from "../Admin/component/User";
+import Books from "../Admin/component/Books";
+import CreateBooks from "../Admin/component/createBook";
+
+
 import CreateUser from "../Admin/component/CreateUser";
 
 import Sidebar2 from "../Admin/SideBar2";
@@ -23,6 +27,8 @@ const MainRoute = () => {
       {location.pathname === "/login" ||
       location.pathname === "/register" ||
       location.pathname === "/admin/User" ||
+      location.pathname === "/admin/books" ||
+      location.pathname === "/admin/books/create" ||
       location.pathname === "/admin/User/create" ||
       location.pathname === "/admin" ? (
         <></>
@@ -43,11 +49,21 @@ const MainRoute = () => {
           path="/admin/User/create"
           element={<Sidebar2 Component={CreateUser} />}
         />
+                <Route
+          path="/admin/books"
+          element={<Sidebar2 Component={Books} />}
+        />
+        <Route
+          path="/admin/books/create"
+          element={<Sidebar2 Component={CreateBooks} />}
+        />
       </Routes>
       {location.pathname === "/login" ||
       location.pathname === "/register" ||
       location.pathname === "/admin/User" ||
       location.pathname === "/admin/User/create" ||
+      location.pathname === "/admin/books" ||
+      location.pathname === "/admin/books/create" ||
       location.pathname === "/admin" ? (
         <></>
       ) : (

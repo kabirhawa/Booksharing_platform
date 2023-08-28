@@ -28,12 +28,12 @@ const CreateUser = () => {
 
   return (
     <div>
-    <Button style={{ float:"left" }} variant="contained" color="primary" onClick={()=>navigate("/admin/User")}>
+    <Button style={{ float:"left" }} variant="contained" color="primary" onClick={()=>navigate("/admin/books")}>
      Back
   </Button>
     <Container maxWidth="sm">
       <Typography variant="h4" gutterBottom>
-        Create User
+        Create Book
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>

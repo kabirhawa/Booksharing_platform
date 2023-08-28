@@ -41,9 +41,9 @@ const DataTable = ({ data, onEdit, onDelete }) => {
 
   return (
     <div>      
-    <Button variant="contained" color="primary" onClick={()=>navigate("/admin/User/create")} 
+    <Button variant="contained" color="primary" onClick={()=>navigate("/admin/books/create")} 
     >
-    Create User
+    Create Book
   </Button>
     <TableContainer component={Paper}>
       <Table>

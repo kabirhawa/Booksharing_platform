@@ -135,7 +135,7 @@ export default function SideBar2({ Component }) {
           </ListItemIcon>
           <ListItemText primary="Users" />
         </ListItem>
-        <ListItem button component={Link} to="">
+        <ListItem button component={Link} to="/admin/books">
           <ListItemIcon>
             <BookIcon />
           </ListItemIcon>
