@@ -31,7 +31,7 @@ const MyDropZone = ({ setFieldValue, images }) => {
   };
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/*",
+    accept: "images/*",
     multiple: true,
     onDrop,
   });
@@ -44,22 +44,24 @@ const MyDropZone = ({ setFieldValue, images }) => {
       </div>
       <Grid container spacing={2}>
         {images &&
-          images.map((image, index) => (
-            <Grid item key={index}>
-              <Card sx={{ width: 150, height: "200px" }}>
-                <img
-                  src={URL.createObjectURL(image.file)}
-                  alt={`Preview ${index}`}
-                  style={{ width: "100%", height: "auto" }}
-                />
-                <CardContent>
-                  <IconButton size="small" onClick={() => removeImage(index)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
+          images.map((image, index) => {
+            return (
+              <Grid item key={index}>
+                <Card sx={{ width: 150, height: "200px" }}>
+                  <img
+                    src={image.base64}
+                    alt={`Preview ${index}`}
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                  <CardContent>
+                    <IconButton size="small" onClick={() => removeImage(index)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Grid>
+            );
+          })}
       </Grid>
     </div>
   );

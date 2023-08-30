@@ -16,11 +16,12 @@ import {
   Tooltip,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { getUserBooks } from "../../Service/books.service";
+import { deleteBooks, getUserBooks } from "../../Service/books.service";
 import { useDispatch, useSelector } from "react-redux";
 import { setMyBooks } from "../../store/slices/book";
 import ModeIcon from "@mui/icons-material/Mode";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { showSnakbar } from "../../store/slices/snakbar";
 
 const rowsPerPageOptions = [5, 10, 25];
 
@@ -35,7 +36,7 @@ const MyBooks = () => {
   const user = useSelector((state) => state.user).user;
   const myBooks = useSelector((state) => state.books).MyBooks;
   console.log(myBooks);
-  useEffect(() => {
+  const getBook = () => {
     getUserBooks(user?._id)
       .then((data) => {
         console.log(data.data.data);
@@ -44,6 +45,9 @@ const MyBooks = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+  useEffect(() => {
+    getBook();
   }, [user]);
 
   const handleChangeRowsPerPage = (event) => {
@@ -99,12 +103,39 @@ const MyBooks = () => {
                   <TableCell>{row.author}</TableCell>
                   <TableCell>
                     <Tooltip title={"Edit this book details"}>
-                      <IconButton>
+                      <IconButton
+                        onClick={() => {
+                          navigate("/mybooks/edit", { state: row });
+                        }}
+                      >
                         <ModeIcon />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title={"Delete this book "}>
-                      <IconButton>
+                      <IconButton
+                        onClick={() => {
+                          deleteBooks(row._id)
+                            .then(() => {
+                              getBook();
+                              dispatch(
+                                showSnakbar({
+                                  message: "Book has been Deleted successfully",
+                                  open: true,
+                                  type: "success",
+                                })
+                              );
+                            })
+                            .catch(() => {
+                              dispatch(
+                                showSnakbar({
+                                  message: "Unable to Delete Book",
+                                  open: true,
+                                  type: "error",
+                                })
+                              );
+                            });
+                        }}
+                      >
                         <DeleteIcon />
                       </IconButton>
                     </Tooltip>

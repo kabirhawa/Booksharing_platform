@@ -1,32 +1,46 @@
+import React, { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { ThemeProvider, createTheme, useTheme } from "@mui/material/styles";
 import {
-  Button,
+  Typography,
+  Container,
+  Paper,
+  makeStyles,
   CardActions,
+  Button,
   Dialog,
-  DialogActions,
+  DialogTitle,
   DialogContent,
   DialogContentText,
-  DialogTitle,
   TextField,
-  ThemeProvider,
-  createTheme,
+  DialogActions,
 } from "@mui/material";
-import React, { useState } from "react";
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { useLocation } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { saveWishList, sendRequest } from "../../Service/books.service";
-import { useDispatch } from "react-redux";
-import { showSnakbar } from "../../store/slices/snakbar";
+import { showSnakbar } from "../store/slices/snakbar";
+import { saveWishList, sendRequest } from "../Service/books.service";
+import { useDispatch, useSelector } from "react-redux";
 
-const CardCrousel = ({ title, description, imageUrl, id, userId }) => {
+const ProductDetailPage = () => {
+  const images = [
+    "image_url_1",
+    "image_url_2",
+    "image_url_3",
+    // Add more image URLs as needed
+  ];
+  const theme = useTheme();
+  const location = useLocation();
+  const book = location.state;
+
   const dispatch = useDispatch();
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [request, setRequest] = useState(null);
-
+  const user = useSelector((state) => state.user).user;
   const handleChange = (event) => {
     setRequest(event.target.value);
   };
@@ -36,7 +50,7 @@ const CardCrousel = ({ title, description, imageUrl, id, userId }) => {
 
   const handleSubmit = () => {
     if (request) {
-      sendRequest({ message: request, bookownerid: userId, bookid: id })
+      sendRequest({ message: request, bookownerid: user._id, bookid: book._id })
         .then(() => {
           dispatch(
             showSnakbar({
@@ -98,7 +112,7 @@ const CardCrousel = ({ title, description, imageUrl, id, userId }) => {
       });
   };
 
-  const theme = createTheme({
+  const theme1 = createTheme({
     components: {
       MuiSvgIcon: {
         styleOverrides: {
@@ -109,8 +123,12 @@ const CardCrousel = ({ title, description, imageUrl, id, userId }) => {
       },
     },
   });
+
   return (
-    <>
+    <Container
+      maxWidth="md"
+      sx={{ paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4) }}
+    >
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
@@ -138,26 +156,33 @@ const CardCrousel = ({ title, description, imageUrl, id, userId }) => {
           <Button onClick={handleSubmit}>send Request</Button>
         </DialogActions>
       </Dialog>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="140"
-          image={imageUrl[0].base64}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-        </CardContent>
+      <Paper elevation={3} sx={{ padding: theme.spacing(3) }}>
+        <Swiper
+          spaceBetween={10}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+        >
+          {book.bookurl.map((image, index) => (
+            <SwiperSlide key={index}>
+              <img
+                src={image.base64}
+                style={{ width: "100%", height: "auto" }}
+                alt="img"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <Typography variant="h5" gutterBottom>
+          {book.title}
+        </Typography>
+        <Typography variant="body1">This book is by {book.author}</Typography>
+        <Typography variant="body1">{book.description}</Typography>
         <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={theme1}>
             <Button
               onClick={() => {
-                handleSwitchChange(id);
+                handleSwitchChange(user._id);
               }}
             >
               {isFavorite ? (
@@ -171,9 +196,9 @@ const CardCrousel = ({ title, description, imageUrl, id, userId }) => {
             <PersonAddIcon />
           </Button>
         </CardActions>
-      </Card>
-    </>
+      </Paper>
+    </Container>
   );
 };
 
-export default CardCrousel;
+export default ProductDetailPage;

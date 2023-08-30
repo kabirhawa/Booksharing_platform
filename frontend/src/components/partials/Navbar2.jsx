@@ -99,8 +99,6 @@ function Navbar2() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -111,7 +109,9 @@ function Navbar2() {
               textDecoration: "none",
             }}
           >
-            BookSharing Platform
+            <Link style={{ textDecoration: "none", color: "inherit" }} to={"/"}>
+              BookSharing Platform
+            </Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -144,27 +144,23 @@ function Navbar2() {
               }}
             >
               <MenuItem
-                key={"Profile"}
+                key={"wishlist"}
                 onClick={() => {
                   handleCloseNavMenu();
 
-                  navigate("/profile", { state: user });
+                  navigate("/wishlist", { state: user });
                 }}
               >
                 <Typography textAlign="center">Profile</Typography>
               </MenuItem>
-              <MenuItem key={"my books"} onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">My Books</Typography>
-              </MenuItem>
               <MenuItem
-                key={"Logout"}
+                key={"Requests"}
                 onClick={() => {
-                  dispatch(logout());
+                  navigate("/myRequest");
                   handleCloseNavMenu();
-                  navigate("/login");
                 }}
               >
-                <Typography textAlign="center">Logout</Typography>
+                <Typography textAlign="center">Requests</Typography>
               </MenuItem>
             </Menu>
           </Box>
@@ -191,7 +187,10 @@ function Navbar2() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
               key={"Requests"}
-              onClick={handleCloseNavMenu}
+              onClick={() => {
+                navigate("/myRequest");
+                handleCloseNavMenu();
+              }}
               sx={{ my: 2, color: "white", display: "block" }}
             >
               requests

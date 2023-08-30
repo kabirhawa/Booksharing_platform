@@ -22,6 +22,8 @@ const Profile = lazy(() => import("../Pages/profile"));
 const Search = lazy(() => import("../Pages/Search"));
 const Wishlist = lazy(() => import("../Pages/wishlist"));
 const PageNotFound = lazy(() => import("../Pages/pagenotfound"));
+const MyRequest = lazy(() => import("../Pages/myRequest"));
+const Book = lazy(() => import("../Pages/productPage"));
 const MyBooks = lazy(() => import("../Pages/myBooks/myBooks"));
 const AddMyBooks = lazy(() => import("../Pages/myBooks/addBook"));
 
@@ -47,6 +49,7 @@ const MainRoute = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<PublicRoute component={Home} />} />
           <Route path="/search" element={<PublicRoute component={Search} />} />
+          <Route path="/book/view" element={<PublicRoute component={Book} />} />
           <Route
             path="/profile"
             element={<PrivateRoute component={Profile} />}
@@ -56,7 +59,15 @@ const MainRoute = () => {
             element={<PrivateRoute component={MyBooks} />}
           />
           <Route
+            path="/myRequest"
+            element={<PrivateRoute component={MyRequest} />}
+          />
+          <Route
             path="/mybooks/add"
+            element={<PrivateRoute component={AddMyBooks} />}
+          />
+          <Route
+            path="/mybooks/edit"
             element={<PrivateRoute component={AddMyBooks} />}
           />
           <Route

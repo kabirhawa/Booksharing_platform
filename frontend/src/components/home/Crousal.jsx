@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Box, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 // import { Box } from "@mui/material";
 const Crousal = (props) => {
   document.documentElement.style.setProperty(
@@ -58,12 +59,19 @@ const Crousal = (props) => {
       >
         {props.cards.map((card) => (
           <SwiperSlide>
-            <CardCrousel
-              id={card._id}
-              title={card.title}
-              description={card.description}
-              imageUrl={card.imageUrl}
-            />
+            <Link
+              style={{ textDecoration: "none", color: "inherit" }}
+              to={"/book/view"}
+              state={card}
+            >
+              <CardCrousel
+                id={card._id}
+                userId={card.userid}
+                title={card.title}
+                description={card.description}
+                imageUrl={card.bookurl}
+              />
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

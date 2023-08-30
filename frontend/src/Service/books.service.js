@@ -5,6 +5,14 @@ export function saveBooks(rowdata) {
   return axios.post(`${URL}/bookinfo`, rowdata);
 }
 
+export function editBooks(id, rowdata) {
+  return axios.put(`${URL}/bookupdate/${id}`, rowdata);
+}
+
+export function deleteBooks(id) {
+  return axios.delete(`${URL}/bookdelete/${id}`);
+}
+
 export function saveWishList(rowdata) {
   return axios.post(`${URL}/favorite/${rowdata}`);
 }
