@@ -20,3 +20,7 @@ export function updateUsers(userid, reqData) {
 export function addToWishlist( reqData) {
   return axios.put(`${URL}/favorite`, reqData);
 }
+
+export function allUser() {
+  return axios.get(`${URL}/getusers`); // Adjust the HTTP method and parameters as needed
+}

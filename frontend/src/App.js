@@ -6,7 +6,6 @@ import MainRoute from "./Routes/mainroute";
 import { Provider } from "react-redux";
 import store from "./store";
 import SnackbarComponent from "./components/partials/Snakbar";
-import Admin from "./Admin/Admin"
 
 function App() {
   const theme = createTheme({
