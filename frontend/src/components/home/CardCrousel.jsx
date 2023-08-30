@@ -16,6 +16,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { saveWishList } from "../../Service/books.service";
 
 const CardCrousel = ({ title, description, imageUrl, id }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -34,8 +35,6 @@ const CardCrousel = ({ title, description, imageUrl, id }) => {
   };
 
   const handleSwitchChange = (event) => {
-    console.log(event.target.value);
-
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
   };
 

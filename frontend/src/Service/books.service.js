@@ -6,7 +6,7 @@ export function saveBooks(rowdata) {
 }
 
 export function saveWishList(rowdata) {
-  return axios.post(`${URL}/favorite`, rowdata);
+  return axios.post(`${URL}/favorite/${rowdata}`);
 }
 
 export function getBooks() {

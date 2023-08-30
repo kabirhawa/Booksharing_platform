@@ -27,6 +27,17 @@ import { showSnakbar } from "../../store/slices/snakbar";
 //     description: req.body.description,
 //     bookurl:req.body.bookurl
 //   }
+
+const imageSchema = Yup.object().shape({
+  file: Yup.mixed()
+    .required("Image file is required")
+    .test("fileSize", "File size is too large", (value) => {
+      if (!value) return true; // Allow empty values to pass (for when editing without changing the image)
+      return value.size <= 500 * 1024; // 500KB in bytes
+    }),
+  isCover: Yup.boolean(),
+});
+
 const AddBook = () => {
   const Validation = Yup.object().shape({
     BookName: Yup.string().required("Name is required"),
@@ -36,12 +47,7 @@ const AddBook = () => {
     images: Yup.array()
       .required("At least 3 images are required")
       .max(3, "Maximum of 3 images allowed")
-      .of(
-        Yup.object().shape({
-          file: Yup.mixed().required("Image file is required"),
-          isCover: Yup.boolean(),
-        })
-      ),
+      .of(imageSchema),
   });
 
   const genres = [
