@@ -20,3 +20,7 @@ export function sendRequest(reqData) {
 export function deleteRequest(loginid) {
   return axios.delete(`${URL}/inbox/${loginid}`);
 }
+
+export function getUserBooks(userid) {
+  return axios.get(`${URL}/userbooks/${userid}`);
+}

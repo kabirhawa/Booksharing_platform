@@ -166,9 +166,14 @@ const AddBook = () => {
                       id="genres"
                       options={genres}
                       value={values.genres}
-                      onChange={(_, newValue) =>
-                        setFieldValue("genres", newValue)
-                      }
+                      onChange={(_, newValue) => {
+                        // Combine the existing values with the new values
+                        const combinedValues = [...values.genre, ...newValue];
+                        // Use a Set to remove duplicates, then convert back to an array
+                        const uniqueValues = [...new Set(combinedValues)];
+                        // Use the unique values to update the "genre" field
+                        setFieldValue("genre", uniqueValues);
+                      }}
                       renderInput={(params) => (
                         <TextField
                           {...params}
@@ -186,6 +191,7 @@ const AddBook = () => {
                         margin: "20px",
                         borderRadius: "10px",
                         height: "300px",
+                        overflowY: "auto",
                       }}
                     >
                       <label>Book Images</label>
