@@ -16,7 +16,9 @@ import Navbar2 from "../components/partials/Navbar2";
 
 import Sidebar2 from "../Admin/SideBar2";
 import { PrivateRoute } from "../Middleware/privateRoute";
+
 import { LinearProgress } from "@mui/material";
+import { AdminRoute } from "../Middleware/AdminRoute";
 const Home = lazy(() => import("../Pages/home"));
 const Profile = lazy(() => import("../Pages/profile"));
 const Search = lazy(() => import("../Pages/Search"));
@@ -75,16 +77,23 @@ const MainRoute = () => {
             element={<PrivateRoute component={Wishlist} />}
           />
           <Route path="/register" element={<Register />} />
-          <Route path="/admin" element={<Sidebar2 Component={Dashboard} />} />
-          <Route path="/admin/User" element={<Sidebar2 Component={User1} />} />
+          <Route path="/admin" element={<AdminRoute component={Dashboard} />} />
+
+          <Route
+            path="/admin/User"
+            element={<AdminRoute component={User1} />}
+          />
           <Route
             path="/admin/User/create"
-            element={<Sidebar2 Component={CreateUser} />}
+            element={<AdminRoute component={CreateUser} />}
           />
-          <Route path="/admin/books" element={<Sidebar2 Component={Books} />} />
+          <Route
+            path="/admin/books"
+            element={<AdminRoute component={Books} />}
+          />
           <Route
             path="/admin/books/create"
-            element={<Sidebar2 Component={CreateBooks} />}
+            element={<AdminRoute component={CreateBooks} />}
           />
 
           {/* Route for Page Not Found */}
