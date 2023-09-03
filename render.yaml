@@ -1,7 +1,0 @@
-services:
-  - name: frontend
-    type: web
-    buildCommand: cd frontend && npm install && npm run build
-    env: 
-    PORT=3006
-    REACT_APP_APIURL=https://dull-costume-foal.cyclic.cloud
