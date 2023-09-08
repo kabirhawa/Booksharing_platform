@@ -1,7 +1,12 @@
+import { Box, CircularProgress } from "@mui/material";
 import React from "react";
 
 const PageNotFound = () => {
-  return <div>Oops! Page not found.</div>;
+  return (
+    <Box sx={{margin:'auto'}}>
+      <CircularProgress />
+    </Box>
+  );
 };
 
 export default PageNotFound;

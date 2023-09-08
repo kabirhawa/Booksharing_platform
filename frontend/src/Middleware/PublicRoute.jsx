@@ -4,6 +4,8 @@ import { setToken, setUser } from "../store/slices/user";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { getUser } from "../Service/user.service";
+import Navbar2 from "../components/partials/Navbar2";
+import Footer from "../components/partials/Footer";
 
 const PublicRoute = ({ component: Component }) => {
   // console.log("public route called");
@@ -30,7 +32,6 @@ const PublicRoute = ({ component: Component }) => {
     console.log("called");
     var authTokenTimestamp = sessionStorage.getItem("authTokenTimestamp");
 
-
     if (!userState || !user) {
       handleAsyncOperations();
     }
@@ -51,7 +52,15 @@ const PublicRoute = ({ component: Component }) => {
     }
   };
 
-  return isTokenValid() ? <Component /> : <Navigate to={"/login"} />;
+  return isTokenValid() ? (
+    <>
+      <Navbar2 />
+      <Component />
+      <Footer />
+    </>
+  ) : (
+    <Navigate to={"/login"} />
+  );
 };
 
 export default PublicRoute;

@@ -64,7 +64,7 @@ const Home = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [user]);
+  }, []);
 
   const Books = useSelector((state) => state.books).AllBooks;
   return (

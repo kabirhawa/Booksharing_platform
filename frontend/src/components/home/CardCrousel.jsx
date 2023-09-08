@@ -19,8 +19,9 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { saveWishList, sendRequest } from "../../Service/books.service";
 import { useDispatch } from "react-redux";
 import { showSnakbar } from "../../store/slices/snakbar";
+import { Link } from "react-router-dom";
 
-const CardCrousel = ({ title, description, imageUrl, id, userId }) => {
+const CardCrousel = ({ title, description, imageUrl, id, userId, card }) => {
   const dispatch = useDispatch();
 
   const [isFavorite, setIsFavorite] = useState(false);
@@ -139,20 +140,26 @@ const CardCrousel = ({ title, description, imageUrl, id, userId }) => {
         </DialogActions>
       </Dialog>
       <Card sx={{ maxWidth: 345 }}>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="140"
-          image={imageUrl[0].base64}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-        </CardContent>
+        <Link
+          style={{ textDecoration: "none", color: "inherit" }}
+          to={"/book/view"}
+          state={card}
+        >
+          <CardMedia
+            component="img"
+            alt="green iguana"
+            height="140"
+            image={imageUrl[0].base64}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {description}
+            </Typography>
+          </CardContent>
+        </Link>
         <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
           <ThemeProvider theme={theme}>
             <Button

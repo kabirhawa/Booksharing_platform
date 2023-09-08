@@ -160,7 +160,7 @@ export default function SearchCard({ product }) {
                   }}
                 >
                   <Typography variant="subtitle1" gutterBottom>
-                    Price: ${product.price}
+                    By: {product.author}
                   </Typography>
                   <Box sx={{ display: "flex" }}>
                     <ThemeProvider theme={theme}>

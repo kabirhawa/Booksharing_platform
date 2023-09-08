@@ -32,3 +32,7 @@ export function deleteRequest(loginid) {
 export function getUserBooks(userid) {
   return axios.get(`${URL}/userbooks/${userid}`);
 }
+
+export function searchBooks(search) {
+  return axios.get(`${URL}/search/${search}`);
+}

@@ -8,12 +8,13 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
 import image1 from "../images/1159.jpg";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import image2 from "../images/7492664.jpg";
-import image3 from "../images/19021605.jpg";
+import { getUser } from "../Service/user.service";
+import { setUser } from "../store/slices/user";
 
 const WishListCard = ({ imageUrl, title, description }) => {
   const [isFavorite, setIsFavorite] = useState(true);
@@ -49,51 +50,28 @@ const WishListCard = ({ imageUrl, title, description }) => {
   );
 };
 const Wishlist = () => {
+  const dispatch = useDispatch();
+  const wishlist = useSelector((state) => state.user)?.user?.favorite;
+  useEffect(() => {
+    getUser().then((response) => {
+      dispatch(setUser(response.data.data));
+    });
+  }, []);
+
   return (
     <Box sx={{ mt: 5 }}>
       <Grid container spacing={2}>
-        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-          <WishListCard
-            title="Brain Activity Book for Kids"
-            description="..."
-            imageUrl={image1}
-          />
-        </Grid>
-        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-          <WishListCard
-            title="Brain Activity Book for Kids"
-            description="..."
-            imageUrl={image2}
-          />
-        </Grid>
-        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-          <WishListCard
-            title="Brain Activity Book for Kids"
-            description="..."
-            imageUrl={image3}
-          />
-        </Grid>
-        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-          <WishListCard
-            title="Brain Activity Book for Kids"
-            description="..."
-            imageUrl={image3}
-          />
-        </Grid>
-        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-          <WishListCard
-            title="Brain Activity Book for Kids"
-            description="..."
-            imageUrl={image3}
-          />
-        </Grid>
-        <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-          <WishListCard
-            title="Brain Activity Book for Kids"
-            description="..."
-            imageUrl={image3}
-          />
-        </Grid>
+        {wishlist &&
+          wishlist.length > 0 &&
+          wishlist?.map((data) => (
+            <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
+              <WishListCard
+                title={data?.bookadd?.title}
+                description={data?.bookadd?.description}
+                imageUrl={image1}
+              />
+            </Grid>
+          ))}
       </Grid>
     </Box>
   );

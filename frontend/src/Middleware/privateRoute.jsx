@@ -4,6 +4,8 @@ import { Navigate } from "react-router-dom";
 import { setToken, setUser } from "../store/slices/user";
 import axios from "axios";
 import { getUser } from "../Service/user.service";
+import Navbar2 from "../components/partials/Navbar2";
+import Footer from "../components/partials/Footer";
 
 export const PrivateRoute = ({ component: Component }) => {
   const dispatch = useDispatch();
@@ -44,5 +46,13 @@ export const PrivateRoute = ({ component: Component }) => {
     return timeElapsed < twentyFourHoursInMillis;
   };
 
-  return isTokenValid() ? <Component /> : <Navigate to={"/login"} />;
+  return isTokenValid() ? (
+    <>
+      <Navbar2 />
+      <Component />
+      <Footer />
+    </>
+  ) : (
+    <Navigate to={"/login"} />
+  );
 };
