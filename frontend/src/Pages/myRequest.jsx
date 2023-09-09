@@ -14,6 +14,9 @@ import {
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch, useSelector } from "react-redux";
+import { acceptRequest, removeRequest } from "../Service/books.service";
+import { showSnakbar } from "../store/slices/snakbar";
 
 const data = [
   { name: "User 1", message: "Hello", id: 1 },
@@ -21,7 +24,51 @@ const data = [
   // Add more data entries as needed
 ];
 
-const CustomTable = () => {
+const CustomTable = ({ data }) => {
+  const dispatch = useDispatch();
+  const handleAccept = (id) => {
+    acceptRequest(id)
+      .then((data) => {
+        dispatch(
+          showSnakbar({
+            message: "Request Accepted",
+            open: true,
+            type: "success",
+          })
+        );
+      })
+      .catch((err) => {
+        dispatch(
+          showSnakbar({
+            message: "Unable to accept request please check connection",
+            open: true,
+            type: "error",
+          })
+        );
+      });
+  };
+
+  const rejectRequest = (id) => {
+    removeRequest(id)
+      .then((data) => {
+        dispatch(
+          showSnakbar({
+            message: "Request rejected",
+            open: true,
+            type: "success",
+          })
+        );
+      })
+      .catch((err) => {
+        dispatch(
+          showSnakbar({
+            message: "Unable to reject request please check connection",
+            open: true,
+            type: "error",
+          })
+        );
+      });
+  };
   return (
     <TableContainer component={Paper}>
       <Table sx={{ borderCollapse: "separate", borderSpacing: "0 8px" }}>
@@ -35,13 +82,27 @@ const CustomTable = () => {
         <TableBody>
           {data.map((row) => (
             <TableRow key={row.id}>
-              <TableCell sx={{ borderBottom: "none" }}>{row.name}</TableCell>
+              <TableCell sx={{ borderBottom: "none" }}>
+                {row.username}
+              </TableCell>
               <TableCell sx={{ borderBottom: "none" }}>{row.message}</TableCell>
               <TableCell sx={{ borderBottom: "none" }}>
-                <IconButton aria-label="Accept" color="primary">
+                <IconButton
+                  onClick={() => {
+                    handleAccept(row._id);
+                  }}
+                  aria-label="Accept"
+                  color="primary"
+                >
                   <CheckIcon />
                 </IconButton>
-                <IconButton aria-label="Reject" color="secondary">
+                <IconButton
+                  onClick={() => {
+                    rejectRequest(row._id);
+                  }}
+                  aria-label="Reject"
+                  color="secondary"
+                >
                   <CloseIcon />
                 </IconButton>
               </TableCell>
@@ -54,6 +115,7 @@ const CustomTable = () => {
 };
 
 const MyRequest = () => {
+  const inbox = useSelector((state) => state.user).user.inbox;
   return (
     <Card sx={{ margin: "20px", borderRadius: "10px", mb: 30 }}>
       <CardContent>
@@ -61,7 +123,7 @@ const MyRequest = () => {
           Requests
         </Typography>
       </CardContent>
-      <CustomTable />
+      <CustomTable data={inbox} />
     </Card>
   );
 };

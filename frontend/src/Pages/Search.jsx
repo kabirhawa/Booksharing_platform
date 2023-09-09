@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SearchCard from "../components/Search/Searchcard";
 import { Box, CircularProgress } from "@mui/material";
 
@@ -25,6 +25,7 @@ const Search = () => {
                   description: `${data.description}`,
                   img: `${data.bookurl[0].base64}`,
                   author: `${data.author}`,
+                  data: data,
                 }}
               />
             </>
