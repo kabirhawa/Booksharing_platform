@@ -36,3 +36,11 @@ export function getUserBooks(userid) {
 export function searchBooks(search) {
   return axios.get(`${URL}/search/${search}`);
 }
+
+export function acceptRequest(id) {
+  return axios.post(`${URL}/request/${id}`);
+}
+
+export function removeRequest(id) {
+  return axios.delete(`${URL}/inbox/${id}`);
+}

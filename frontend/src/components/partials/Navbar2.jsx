@@ -17,6 +17,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import { logout } from "../../store/slices/user";
+import { searchBooks } from "../../Service/books.service";
+import { setSearchBooks, setSearching } from "../../store/slices/book";
 
 const pages = ["Products", "Pricing", "Blog"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -151,7 +153,7 @@ function Navbar2() {
                   navigate("/wishlist", { state: user });
                 }}
               >
-                <Typography textAlign="center">Profile</Typography>
+                <Typography textAlign="center">wishlist</Typography>
               </MenuItem>
               <MenuItem
                 key={"Requests"}
@@ -172,9 +174,12 @@ function Navbar2() {
             </SearchIconWrapper>
             <StyledInputBase
               onKeyDown={(event) => {
+                dispatch(setSearching(true));
                 if (event.key === "Enter" && event.target.value.trim() !== "") {
-                  // Call your function here
-
+                  searchBooks(event.target.value.trim()).then((data) => {
+                    dispatch(setSearching(false));
+                    dispatch(setSearchBooks(data.data.data));
+                  });
                   navigate("/search", {
                     state: { value: event.target.value.trim() },
                   });

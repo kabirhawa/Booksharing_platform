@@ -5,6 +5,8 @@ export const bookSlice = createSlice({
   initialState: {
     AllBooks: "",
     MyBooks: null,
+    searchBooks: [],
+    searching: true,
   },
   reducers: {
     setAllBooks: (state, action) => {
@@ -13,9 +15,16 @@ export const bookSlice = createSlice({
     setMyBooks: (state, action) => {
       state.MyBooks = action.payload;
     },
+    setSearchBooks: (state, action) => {
+      state.searchBooks = action.payload;
+    },
+    setSearching: (state, action) => {
+      state.searching = action.payload;
+    },
   },
 });
 
-export const { setAllBooks, setMyBooks } = bookSlice.actions;
+export const { setAllBooks, setMyBooks, setSearchBooks, setSearching } =
+  bookSlice.actions;
 
 export default bookSlice.reducer;
