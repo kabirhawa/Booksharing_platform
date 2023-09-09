@@ -153,7 +153,7 @@ function Navbar2() {
                   navigate("/wishlist", { state: user });
                 }}
               >
-                <Typography textAlign="center">Profile</Typography>
+                <Typography textAlign="center">wishlist</Typography>
               </MenuItem>
               <MenuItem
                 key={"Requests"}

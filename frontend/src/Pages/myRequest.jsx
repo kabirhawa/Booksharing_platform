@@ -18,12 +18,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { acceptRequest, removeRequest } from "../Service/books.service";
 import { showSnakbar } from "../store/slices/snakbar";
 
-const data = [
-  { name: "User 1", message: "Hello", id: 1 },
-  { name: "User 2", message: "Hi there", id: 2 },
-  // Add more data entries as needed
-];
-
 const CustomTable = ({ data }) => {
   const dispatch = useDispatch();
   const handleAccept = (id) => {
