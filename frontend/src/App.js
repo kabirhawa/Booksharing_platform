@@ -1,6 +1,6 @@
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import MainRoute from "./Routes/mainroute";
 
 import { Provider } from "react-redux";

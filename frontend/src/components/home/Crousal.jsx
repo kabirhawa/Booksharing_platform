@@ -8,7 +8,8 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Box, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+
+import CustomContentLoader from "../partials/CustomContentLoader";
 // import { Box } from "@mui/material";
 const Crousal = (props) => {
   document.documentElement.style.setProperty(
@@ -57,23 +58,24 @@ const Crousal = (props) => {
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log("slide change")}
       >
-        {props.cards.map((card) => (
-          <SwiperSlide>
-            <Link
-              style={{ textDecoration: "none", color: "inherit" }}
-              to={"/book/view"}
-              state={card}
-            >
-              <CardCrousel
-                id={card._id}
-                userId={card.userid}
-                title={card.title}
-                description={card.description}
-                imageUrl={card.bookurl}
-              />
-            </Link>
-          </SwiperSlide>
-        ))}
+        {props.cards && props.cards.length > 0
+          ? props.cards.map((card) => (
+              <SwiperSlide>
+                <CardCrousel
+                  id={card._id}
+                  userId={card.userid}
+                  title={card.title}
+                  description={card.description}
+                  imageUrl={card.bookurl}
+                  card={card}
+                />
+              </SwiperSlide>
+            ))
+          : ["", "", "", "", ""].map(() => (
+              <SwiperSlide>
+                <CustomContentLoader height={"287px"} width={"180px"} />
+              </SwiperSlide>
+            ))}
       </Swiper>
     </Box>
   );
