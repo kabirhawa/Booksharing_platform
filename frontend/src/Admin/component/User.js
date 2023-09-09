@@ -14,7 +14,7 @@ const User1 = () => {
   useEffect(() => {
     allUser()
     .then((data) => {
-      (setData(data));
+      (setData(data.data.data));
     })
     .catch((err) => {
       console.error(err);
