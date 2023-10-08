@@ -77,6 +77,7 @@ const AddBook = () => {
     "Fiction",
     "Science Fiction",
     "Mystery",
+    "Knowledge",
     "Romance",
     "Fantasy",
     // Add more genres here...

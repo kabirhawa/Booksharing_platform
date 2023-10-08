@@ -177,7 +177,9 @@ const ProductDetailPage = () => {
           {book.title}
         </Typography>
         <Typography variant="body1">This book is by {book.author}</Typography>
-        <Typography variant="body1">{book.description}</Typography>
+        <Typography variant="body1">
+          <div dangerouslySetInnerHTML={{ __html: book.description }}></div>
+        </Typography>
         <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
           <ThemeProvider theme={theme1}>
             <Button
@@ -192,6 +194,7 @@ const ProductDetailPage = () => {
               )}
             </Button>
           </ThemeProvider>
+          <Button color="error">Report</Button>
           <Button onClick={handleClickOpen}>
             <PersonAddIcon />
           </Button>

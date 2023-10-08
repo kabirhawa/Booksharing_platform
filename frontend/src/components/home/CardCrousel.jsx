@@ -153,10 +153,7 @@ const CardCrousel = ({ title, description, imageUrl, id, userId, card }) => {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {description}
+              {title.slice(0, 20)}
             </Typography>
           </CardContent>
         </Link>

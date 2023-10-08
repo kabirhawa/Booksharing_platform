@@ -93,6 +93,7 @@ const DataTable = ({ data, onEdit, onDelete }) => {
                   Email
                 </TableSortLabel>
               </TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -103,7 +104,13 @@ const DataTable = ({ data, onEdit, onDelete }) => {
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.email}</TableCell>
                 <TableCell>
-                  <Button variant="outlined" onClick={() => onEdit(row.id)}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => {
+                      onEdit(row.id);
+                      navigate("/admin/User/create", { state: row });
+                    }}
+                  >
                     Edit
                   </Button>
                   <Button
