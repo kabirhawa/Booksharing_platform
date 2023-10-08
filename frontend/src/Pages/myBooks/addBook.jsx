@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editBooks, saveBooks } from "../../Service/books.service";
 import { showSnakbar } from "../../store/slices/snakbar";
 import { useLocation } from "react-router-dom";
+import Editor from "./Edditor";
 
 // {
 //     userid: req.decoded.userid,
@@ -37,7 +38,11 @@ const AddBook = () => {
     const cleanedBase64 = base64String.replace(/^data:image\/\w+;base64,/, "");
 
     // Convert the base64 string to binary data
-    const binaryData = new Uint8Array(atob(cleanedBase64).split("").map((char) => char.charCodeAt(0)));
+    const binaryData = new Uint8Array(
+      atob(cleanedBase64)
+        .split("")
+        .map((char) => char.charCodeAt(0))
+    );
 
     // Get the size of the binary data
     return binaryData.length; // Size in bytes
@@ -181,7 +186,7 @@ const AddBook = () => {
                   </Grid>
                   <br />
                   <Grid xs={12} sx={{ mt: 3, mb: 3 }}>
-                    <TextField
+                    {/* <TextField
                       multiline
                       label={"Description"}
                       rows={3}
@@ -192,7 +197,8 @@ const AddBook = () => {
                       onChange={handleChange}
                       error={touched.description && !!errors.description}
                       helperText={touched.description && errors.description}
-                    />
+                    /> */}
+                    <Editor setFieldValue={setFieldValue} />
                   </Grid>
                   <br />
                   <Grid xs={12} sx={{ mt: 3, mb: 3 }}>
