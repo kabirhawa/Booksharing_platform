@@ -64,7 +64,7 @@ const Profile = () => {
       <Typography variant={"h2"}>Your Profile</Typography>
       <Formik
         initialValues={{
-          name: user?.name ? user.name : "",
+          name: user?.name ? user?.name : "",
           email: user?.email ? user.email : "",
           password: "",
           confirmPassword: "",

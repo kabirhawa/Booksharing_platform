@@ -5,7 +5,6 @@ import {
   Typography,
   Container,
   Paper,
-  makeStyles,
   CardActions,
   Button,
   Dialog,
@@ -14,6 +13,8 @@ import {
   DialogContentText,
   TextField,
   DialogActions,
+  Box,
+  Tooltip,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -23,14 +24,9 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { showSnakbar } from "../store/slices/snakbar";
 import { saveWishList, sendRequest } from "../Service/books.service";
 import { useDispatch, useSelector } from "react-redux";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 
 const ProductDetailPage = () => {
-  const images = [
-    "image_url_1",
-    "image_url_2",
-    "image_url_3",
-    // Add more image URLs as needed
-  ];
   const theme = useTheme();
   const location = useLocation();
   const book = location.state;
@@ -39,13 +35,23 @@ const ProductDetailPage = () => {
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false);
   const [request, setRequest] = useState(null);
+  const [reported, setReported] = useState(false);
   const user = useSelector((state) => state.user).user;
   const handleChange = (event) => {
     setRequest(event.target.value);
   };
   const handleClickOpen = () => {
     setOpen(true);
+  };
+
+  const handleClickOpen1 = () => {
+    setOpen1(true);
+  };
+
+  const handleClose1 = () => {
+    setOpen1(false);
   };
 
   const handleSubmit = () => {
@@ -129,6 +135,42 @@ const ProductDetailPage = () => {
       maxWidth="md"
       sx={{ paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4) }}
     >
+      <Dialog open={open1} onClose={handleClose1}>
+        <DialogTitle>Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Report about this book</DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            multiline
+            rows={3}
+            label="Message"
+            type="text"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose1}>Cancel</Button>
+          <Button
+            color={"error"}
+            onClick={() => {
+              dispatch(
+                showSnakbar({
+                  message: "you reported for this book",
+                  open: true,
+                  type: "success",
+                })
+              );
+              handleClose1();
+              setReported(true);
+            }}
+          >
+            Report
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
@@ -158,13 +200,16 @@ const ProductDetailPage = () => {
       </Dialog>
       <Paper elevation={3} sx={{ padding: theme.spacing(3) }}>
         <Swiper
-          spaceBetween={10}
-          slidesPerView={1}
+          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          spaceBetween={50}
           navigation
           pagination={{ clickable: true }}
+          scrollbar={{ draggable: true, hide: true }}
+          onSwiper={(swiper) => console.log(swiper)}
+          onSlideChange={() => console.log("slide change")}
         >
           {book.bookurl.map((image, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={index} style={{ maxHeight: "100vh" }}>
               <img
                 src={image.base64}
                 style={{ width: "100%", height: "auto" }}
@@ -177,29 +222,50 @@ const ProductDetailPage = () => {
           {book.title}
         </Typography>
         <Typography variant="body1">This book is by {book.author}</Typography>
+        <Box sx={{ display: "flex", justifyContent: "space-around", my: 4 }}>
+          <ThemeProvider theme={theme1}>
+            <Tooltip title={"Add to wishlist"}>
+              <Button
+                onClick={() => {
+                  handleSwitchChange(user._id);
+                }}
+              >
+                {isFavorite ? (
+                  <FavoriteIcon color="pink" />
+                ) : (
+                  <FavoriteBorderIcon color="pink" />
+                )}
+              </Button>
+            </Tooltip>
+          </ThemeProvider>
+          <Tooltip title={"send request for this book inquire"}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleClickOpen}
+            >
+              <PersonAddIcon /> Send Request
+            </Button>
+          </Tooltip>
+        </Box>
+        <Typography variant="h3">Description</Typography>
+        <br />
         <Typography variant="body1">
           <div dangerouslySetInnerHTML={{ __html: book.description }}></div>
         </Typography>
-        <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
-          <ThemeProvider theme={theme1}>
-            <Button
-              onClick={() => {
-                handleSwitchChange(user._id);
-              }}
-            >
-              {isFavorite ? (
-                <FavoriteIcon color="pink" />
-              ) : (
-                <FavoriteBorderIcon color="pink" />
-              )}
-            </Button>
-          </ThemeProvider>
-          <Button color="error">Report</Button>
-          <Button onClick={handleClickOpen}>
-            <PersonAddIcon />
-          </Button>
-        </CardActions>
       </Paper>
+      <Box sx={{ mt: 3 }}>
+        <Tooltip title={"Report for this book"}>
+          <Button
+            variant="contained"
+            disabled={reported}
+            onClick={handleClickOpen1}
+            color="error"
+          >
+            {reported ? "reported" : "Report"}
+          </Button>
+        </Tooltip>
+      </Box>
     </Container>
   );
 };

@@ -65,34 +65,44 @@ const CreateUser = () => {
         validationSchema={RegisterSchema}
         onSubmit={(values) => {
           console.log(values);
-          register({
-            name: values.name,
-            email: values.email,
-            password: values.password,
-            mobile: values.mobile,
-            country: values.country,
-          })
-            .then(() => {
-              dispatch(
-                showSnakbar({
-                  message: "Successfully Register",
-                  open: true,
-                  type: "success",
-                })
-              );
-
-              navigate("/login");
+          if (data) {
+            register({
+              name: values.name,
+              email: values.email,
+              password: values.password,
+              mobile: values.mobile,
+              country: values.country,
             })
-            .catch((error) => {
-              console.error("Error:", error);
-              dispatch(
-                showSnakbar({
-                  message: "Unable to Register",
-                  open: true,
-                  type: "error",
-                })
-              );
-            });
+              .then(() => {
+                dispatch(
+                  showSnakbar({
+                    message: "Successfully added",
+                    open: true,
+                    type: "success",
+                  })
+                );
+
+                navigate("/login");
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+                dispatch(
+                  showSnakbar({
+                    message: "Unable to Register",
+                    open: true,
+                    type: "error",
+                  })
+                );
+              });
+          } else {
+            dispatch(
+              showSnakbar({
+                message: "Successfully eddited successfully",
+                open: true,
+                type: "success",
+              })
+            );
+          }
         }}
       >
         {({
@@ -118,7 +128,7 @@ const CreateUser = () => {
               }}
             >
               <Typography component="h1" variant="h5">
-                Add user
+                {data ? "Add user" : "edit User"}
               </Typography>
               <form onSubmit={handleSubmit}>
                 <TextField
@@ -212,7 +222,7 @@ const CreateUser = () => {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Add
+                  {data ? "Add" : "Edit"}
                 </Button>
               </form>
             </Box>

@@ -56,7 +56,7 @@ const PublicRoute = ({ component: Component }) => {
     <>
       <Navbar2 />
       <Component />
-      <Footer />
+      {/* <Footer /> */}
     </>
   ) : (
     <Navigate to={"/login"} />

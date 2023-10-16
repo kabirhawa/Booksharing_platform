@@ -20,7 +20,6 @@ const DataTable = ({ data, onEdit, onDelete }) => {
   const [orderBy, setOrderBy] = useState("name");
   const [order, setOrder] = useState("asc");
   // alert( data );
-  console.log(data);
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };

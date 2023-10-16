@@ -36,8 +36,6 @@ export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-
   return (
     <Box
       sx={{
@@ -62,6 +60,7 @@ export default function SignIn() {
               axios.defaults.headers.common["Authorization"] =
                 "Bearer " + authToken;
               getUser().then((response) => {
+                console.log(response);
                 dispatch(setUser(response.data.data));
                 dispatch(
                   showSnakbar({
@@ -70,8 +69,11 @@ export default function SignIn() {
                     type: "success",
                   })
                 );
-
-                navigate("/");
+                if (response.data.data.role_Id === 0) {
+                  navigate("/admin");
+                } else {
+                  navigate("/");
+                }
               });
             })
             .catch((error) => {

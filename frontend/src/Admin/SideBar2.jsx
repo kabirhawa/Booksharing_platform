@@ -135,12 +135,12 @@ export default function SideBar2({ Component }) {
           </ListItemIcon>
           <ListItemText primary="Users" />
         </ListItem>
-        <ListItem button component={Link} to="/admin/books">
+        {/* <ListItem button component={Link} to="/admin/books">
           <ListItemIcon>
             <BookIcon />
           </ListItemIcon>
           <ListItemText primary="Books" />
-        </ListItem>
+        </ListItem> */}
         </List>
         <Divider /> 
       </Drawer>

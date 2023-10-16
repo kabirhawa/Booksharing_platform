@@ -60,7 +60,7 @@ const Crousal = (props) => {
       >
         {props.cards && props.cards.length > 0
           ? props.cards.map((card) => (
-              <SwiperSlide>
+              <SwiperSlide style={{ ml: 2, mr: 2 }}>
                 <CardCrousel
                   id={card._id}
                   userId={card.userid}

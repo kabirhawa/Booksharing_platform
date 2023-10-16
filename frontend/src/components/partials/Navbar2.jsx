@@ -178,7 +178,7 @@ function Navbar2() {
                 if (event.key === "Enter" && event.target.value.trim() !== "") {
                   searchBooks(event.target.value.trim()).then((data) => {
                     dispatch(setSearching(false));
-                    dispatch(setSearchBooks(data.data.data));
+                    dispatch(setSearchBooks(data?.data?.data));
                   });
                   navigate("/search", {
                     state: { value: event.target.value.trim() },
@@ -220,7 +220,7 @@ function Navbar2() {
                   onClick={handleOpenUserMenu}
                   sx={{ p: 0, color: "white" }}
                 >
-                  {user?.name.split(" ")[0]}
+                  {user?.name ? user?.name.split(" ")[0] : ""}
                 </IconButton>
               </Tooltip>
               <Menu

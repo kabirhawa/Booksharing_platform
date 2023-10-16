@@ -18,7 +18,7 @@ import MyDropZone from "./dropZone";
 import { useDispatch, useSelector } from "react-redux";
 import { editBooks, saveBooks } from "../../Service/books.service";
 import { showSnakbar } from "../../store/slices/snakbar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Editor from "./Edditor";
 
 // {
@@ -84,6 +84,7 @@ const AddBook = () => {
   ];
   const user = useSelector((state) => state.user).user;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <Card sx={{ margin: "20px", borderRadius: "10px" }}>
       <CardContent>
@@ -122,6 +123,7 @@ const AddBook = () => {
                     type: "success",
                   })
                 );
+                navigate(-1);
               })
               .catch((err) => {
                 console.log(err);

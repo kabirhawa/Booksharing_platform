@@ -14,6 +14,7 @@ import {
   IconButton,
   Button,
   Tooltip,
+  Box,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { deleteBooks, getUserBooks } from "../../Service/books.service";
@@ -99,7 +100,13 @@ const MyBooks = () => {
               displayedData?.map((row) => (
                 <TableRow key={row.id}>
                   <TableCell>{row.title}</TableCell>
-                  <TableCell>{row.description}</TableCell>
+                  <TableCell>
+                    <Box
+                      dangerouslySetInnerHTML={{
+                        __html: row.description.slice(0, 60),
+                      }}
+                    ></Box>...
+                  </TableCell>
                   <TableCell>{row.author}</TableCell>
                   <TableCell>
                     <Tooltip title={"Edit this book details"}>
