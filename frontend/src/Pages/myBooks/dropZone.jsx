@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Grid, Card, CardContent, IconButton } from "@mui/material";
+import { Grid, Card, CardContent, IconButton, Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDropzone } from "react-dropzone";
 
@@ -37,7 +37,7 @@ const MyDropZone = ({ setFieldValue, images }) => {
   });
 
   return (
-    <div>
+    <Box sx={{ heigth: "100%" }}>
       <div {...getRootProps()} className="dropzone">
         <input {...getInputProps()} />
         <p>Drag 'n' drop some files here, or click to select files</p>
@@ -47,9 +47,9 @@ const MyDropZone = ({ setFieldValue, images }) => {
           images.map((image, index) => {
             return (
               <Grid item key={index}>
-                <Card sx={{ width: 150, height: "200px" }}>
+                <Card sx={{ width: 150, height: "100%" }}>
                   <img
-                    src={image.base64}
+                    src={image?.base64}
                     alt={`Preview ${index}`}
                     style={{ width: "100%", height: "auto" }}
                   />
@@ -63,7 +63,7 @@ const MyDropZone = ({ setFieldValue, images }) => {
             );
           })}
       </Grid>
-    </div>
+    </Box>
   );
 };
 

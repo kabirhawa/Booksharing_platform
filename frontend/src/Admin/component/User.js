@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 
 import {allUser} from '../../Service/user.service'
+import { showSnakbar } from "../../store/slices/snakbar";
 
 
 const User1 = () => {
@@ -27,7 +28,15 @@ const User1 = () => {
     // Implement logic to handle editing for the specific id
   };
 
-  const handleDelete = (id) => {};
+  const handleDelete = (id) => {
+    dispatch(
+      showSnakbar({
+        message: "All items of this users is deleted",
+        open: true,
+        type: "success",
+      })
+    );
+  };
 
   return (
     <div>
