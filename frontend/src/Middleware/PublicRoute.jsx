@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { getUser } from "../Service/user.service";
 import Navbar2 from "../components/partials/Navbar2";
-import Footer from "../components/partials/Footer";
+// import Footer from "../components/partials/Footer";
 
 const PublicRoute = ({ component: Component }) => {
   // console.log("public route called");

@@ -34,7 +34,7 @@ const WishListCard = ({ imageUrl, title, description }) => {
           {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {description}
+          <Box dangerouslySetInnerHTML={{ __html: description }}></Box>
         </Typography>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "left" }}>

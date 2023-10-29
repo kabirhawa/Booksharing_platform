@@ -1,6 +1,6 @@
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material";
-import { HashRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import MainRoute from "./Routes/mainroute";
 
 import { Provider } from "react-redux";
@@ -38,7 +38,7 @@ function App() {
       <Provider store={store}>
         <SnackbarComponent />
         <ThemeProvider theme={theme}>
-          <Router>
+          <Router basename="/">
 
             <MainRoute />
           </Router>
